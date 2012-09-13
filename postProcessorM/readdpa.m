@@ -1,28 +1,7 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Program: readdpa.m                                                 %
-% Purpose: extract slices from dpa file from GENESIS 1.3             %  
-% Copyright (C) 2012 Tong Zhang                                      %
-%                                                                    %
-%                                                                    %
-% This program is free software: you can distribute it and/or modify %
-% it under the terms of GNU General Public License as published by   %
-% the Free Software Foundation, either version 3 of the License or   %
-% (at your option) any later version.                                %
-%                                                                    %
-% This program is distributed in the hope that it will be useful,    %
-% but WITHOUT ANY WARRANTY; without even the implied warranty of     %
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the       %
-% GNU General Public License for more details.                       %
-%                                                                    %
-% You should have received a copy of the GNU General Public License  %
-% along with This program. If not see <http://www.gnu.org/licenses/>.%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 #!/usr/bin/octave -qf
 
 %--------------------------------------------------------------------
 % This script is used to extraing slices out of the dpa binary file
-% It is universal for dumped dpa file from steady-state or TDP. 
 % Author: Tong ZHANG
 % Created Time: Sep. 12, 2012
 %-------------------------------------------------------------------
@@ -92,14 +71,10 @@ fid = fopen(infile, 'r');
 % get the nslice value from the infile size, double (64 bits, 6 Bytes)
 nslice = stat(fid).size/8/npart/6;
 
-nslice
-min(sliceRange)
 
 if (sliceRange == 0) || (min(sliceRange) > nslice) % i.e. not given args{5}, sliceRange rolls back to default value
 	sliceRange = 1:1:nslice;
 end
-
-sliceRange
 
 
 sliceData = fread(fid,  'double'); 
