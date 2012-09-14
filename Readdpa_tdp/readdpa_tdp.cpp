@@ -1,14 +1,15 @@
-/****************************************************************************\
+/********************************************************************\
 This program is written for reading TDP .dpa file
 
 Uasge: readdpa_tdp old_dpafile new_dpafile total_slices
 
-Note: iotail must be 1, unless the total slice number will not be the same as nslice.
+Note: iotail must be 1, unless the total slice number will not be 
+      the same as nslice.
 
 Author: Tong ZHANG
 e-mail: tzhang@sinap.ac.cn
 Created Time: 12:20, May. 31th, 2012
-\****************************************************************************/
+\********************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -22,16 +23,17 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	if(argc != 7)
+	if(argc != 8)
 	{
 		if (argc > 1) cout << "Not enough parameters!\n";
-		cout << "Usage: " << argv[0] << " file1 file2 total_slice total_charge xlamds nharm\n";
+		cout << "Usage: " << argv[0] << " file1 file2 total_slice total_charge xlamds zsep nharm\n";
 		cout << "\t" << "file1: " << "\t\t" << "dpa file to be read\n";
 		cout << "\t" << "file2: " << "\t\t" << "current file\n";
 		cout << "\t" << "total_slice: " << "\t" << "total slice number of dpa file\n";
 		cout << "\t" << "total_charge: " << "\t" << "total bunch charge in [pC]\n";
 		cout << "\t" << "xlamds: " << "\t" << "wavelength [nm]\n";
-		cout << "\t" << "nharm: "  << "\t\t" << "for bunching factor calculation\n\n";
+		cout << "\t" << "zsep  : " << "\t" << "slice spacing in xlamds\n";
+		cout << "\t" << "nharm : " << "\t" << "for bunching factor calculation\n\n";
 		exit(1);
 	}
 
@@ -40,8 +42,8 @@ int main(int argc, char **argv)
 	unsigned int 	total_slices = atoi(argv[3]); 		// total slice number of dpa file
 	double 			total_charge = atof(argv[4])*1e-12; // total charge [pC]->[C]
 	double 			xlamds = atof(argv[5])*1e-9; 		// wavelength [nm]->[m]
-//	int 			zsep   = atoi(argv[6]); 			// slice separation length by unit of xlamds
-	int 			nharm  = atoi(argv[6]); 			// harmonic number for bunching factor calculation
+	int 			zsep   = atoi(argv[6]); 			// slice separation length by unit of xlamds
+	int 			nharm  = atoi(argv[7]); 			// harmonic number for bunching factor calculation
 
 	fstream  oldfile(file1.c_str(), ios::in  | ios::binary);
 	ofstream newfile(file2.c_str());
@@ -68,7 +70,7 @@ int main(int argc, char **argv)
 	cout << data_count << " data read.\n";
 
 	unsigned int npart = data_count/6/total_slices; // total particle number
-	cout << "npart = " << npart << endl;
+//	cout << "npart = " << npart << endl;
 
 
 	// extract theta (t0) column, total: npart*nslice (data_count/6)
@@ -83,8 +85,8 @@ int main(int argc, char **argv)
 	{
 		for(unsigned int j = (6*i+1)*npart; j < (6*i+2)*npart; j++)
 		{
-			t0[n] = a[j]/k0/C0;
-			tout << a[j] << endl;
+			t0[n] = (a[j] + i*zsep*2*PI)/k0/C0; // i*zsep*2pi is a correct factor for longitudinal position (theta->t)
+			tout << a[j] << " " << t0[n] << endl; //original theta and t0
 			n++;
 		}
 	}

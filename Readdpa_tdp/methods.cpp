@@ -66,7 +66,7 @@ void post_process::histc()
 	{
 		count_n = 0;
 		level_bins_up = level_bins_low + bin_width;
-		while (j < data_size && data[j] < level_bins_up){count_n++;++j;};
+		while (j < data_size && data[j] < level_bins_up){count_n++;++j;}
 		count_bins[i] = count_n;
 		x1_bins   [i] = level_bins_low;
 		x2_bins   [i] = level_bins_up;
