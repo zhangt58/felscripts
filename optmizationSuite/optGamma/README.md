@@ -1,4 +1,5 @@
 package name: **optGamma**
+
 belongs to package: **optimizationSuite**
 ==============================================
 
