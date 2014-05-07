@@ -1,14 +1,10 @@
-Package name: **optGamma**
+###Package name: **optGamma**
 
-Belongs to package: **optimizationSuite**
+###Belongs to package: **optimizationSuite**
 
------------------------------------------
-|        |                        |
-|--------|------------------------|
-|Author: | Tong Zhang             |
-|E-mail: | warriorlance@gmail.com |
-|Time:   | 2014-05-06, 11:40 CST  |
------------------------------------------
+######Author: Tong Zhang
+######E-mail: warriorlance@gmail.com
+######Time:   2014-05-06, 11:40 CST 
 
 ###Overview:
 >	Optimize the beam energy for an free-electron laser. The script
