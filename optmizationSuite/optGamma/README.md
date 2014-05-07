@@ -1,5 +1,5 @@
-###Package name: **optGamma**
-###Belongs to package: **optimizationSuite**
+###Package name: __optGamma__
+###Belongs to package: __optimizationSuite__
 ####Information:
 > Author: Tong Zhang
 
