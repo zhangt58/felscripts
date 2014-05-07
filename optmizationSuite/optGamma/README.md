@@ -1,7 +1,6 @@
 package name: **optGamma**
 
 belongs to package: **optimizationSuite**
-==============================================
 
 Author: Tong Zhang
 E-mail: warriorlance@gmail.com
