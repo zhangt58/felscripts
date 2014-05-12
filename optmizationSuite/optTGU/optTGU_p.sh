@@ -8,13 +8,13 @@
 function opt_sec()
 {
 	mkdir -p ./runtime/opt$1
-	cp -a rad.in 0.out.dpa scanTGU.sh ./runtime/opt$1
+	cp -a rad.in 0.out.dpa optTGU.sh ./runtime/opt$1
 	cp -a rad.lat ./runtime/opt$1 2> /dev/null
 	cd ./runtime/opt$1
 	vStart=$2
 	vEnd=$3
 	vStep=$4
-	bash scanTGU.sh ${vStart} ${vEnd} ${vStep}
+	bash optTGU.sh ${vStart} ${vEnd} ${vStep}
 }
 
 echo 0.in | genesis > /dev/null
@@ -40,4 +40,4 @@ done
 wait
 
 eval cat runtime/opt{1..${Ncores}}/scanTGU.dat > scanTGU.$$.dat
-#rm -rf runtime
+rm -rf runtime
