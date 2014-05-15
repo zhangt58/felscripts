@@ -1,5 +1,7 @@
+####Package Name: __calpulse__
+including two scripts:
 .
-├── calavgp.sh  : calculate average power gain curve
-├── calpulse.sh : calculate pulse energy gain curve
+├── _calavgp.sh_  : calculate average power gain curve
+├── _calpulse.sh_ : calculate pulse energy gain curve
 
 Date: 2014-05-05, 16:37
