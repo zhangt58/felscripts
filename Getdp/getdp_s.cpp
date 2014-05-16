@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	if (argc != 4) // if the number of parameters is not enough, then give errors, exit
 	{
 		if (argc >= 2) cout << "Not enough parameters!\n\n";
-		cout << "Usage: " << argv[0] << " file1 file2 slice-order\n";
+		cout << "Usage: " << argv[0] << " file1 file2 s-pos\n";
 		cout << "\t" << "file1: "     << "\t\t" << "TDP output filename, open to read\n";
 		cout << "\t" << "file2: "     << "\t\t" << "data filename, open to write\n";
 		cout << "\t" << "slice-order:"<< "\t" << "slice order number\n\n";
