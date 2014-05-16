@@ -50,16 +50,15 @@ int main(int argc, char **argv)
 	if (argc != 4) // if the number of parameters is not enough, then give errors, exit
 	{
 		if (argc >= 2) cout << "Not enough parameters!\n\n";
-		cout << "Usage: " << argv[0] << " file1 file2 slice-order\n";
+		cout << "Usage: " << argv[0] << " file1 file2 s-pos\n";
 		cout << "\t" << "file1: "     << "\t\t" << "TDP output filename, open to read\n";
 		cout << "\t" << "file2: "     << "\t\t" << "data filename, open to write\n";
-		cout << "\t" << "slice-order:"<< "\t" << "slice order number\n\n";
+		cout << "\t" << "s-pos:"      << "\t"   << "s-pos in [m]\n\n";
 		exit(1);
 	}
 
 	ifstream file1(argv[1]); 		// tdp filename to read
 	ofstream file2(argv[2]); 		// filename for writting data
-	int s_order = atoi(argv[3]); 	// s-record order
 
 	if (!file1 || !file2) 			// if any one of files cannot open, return error, exit
 	{
@@ -67,6 +66,9 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 	
+	double s_pos = atof(argv[3]); 	  // s-pos in [m]
+	double slice_sepe = findKeywordValue(file1, "seperation");
+	int s_order = s_pos/slice_sepe+1; // transform s_pos into s-record order
 
 // locate the slice [s-order]
 	int count = 0; // read line by line, increase count value when encounter line starts with "*", untile count = s-order
