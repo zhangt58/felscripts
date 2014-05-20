@@ -24,4 +24,4 @@ getdp_fun.o: getdp_fun.h
 
 .PHONY: all clean
 clean:
-	-rm $(ALLEXEC) $(OBJECTS1) $(OBJECTS2) 2> /dev/null
+	-rm $(OBJECTS1) $(OBJECTS2) 2> /dev/null
