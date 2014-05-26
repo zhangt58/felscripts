@@ -93,7 +93,13 @@ void checkParams(int argc, char* argv[])
 {
 	if (argc == 1 || (argc > 1 && (argv[1] == std::string("--help") || argv[1] == std::string("-h"))))
 	{
-		std::cout << "Usage: "<< argv[0] << " [--flag value]..." << "\n";
+		std::cout << "Usage: "<< argv[0] << " [--flag value]..." << "\n\n";
+		std::cout << "Usage Example (1): " << argv[0] << " --input infilename" 
+												      << " --output outfilename"
+												      << " --s 1" 
+												      << " --sOrder 100" << "\n";
+		std::cout << "Usage Example (2): " << argv[0] << " --help" << "\n"; 
+		std::cout << "Usage Example (3): " << argv[0] << " --showRange --input infilename" << "\n";
 
 		std::cout << "\n";
 		
@@ -134,6 +140,7 @@ void checkParams(int argc, char* argv[])
 		std::cout << std::endl;
 		exit(1);
 	}
+	if (argc == 4 && )
 }
 
 void showRange(std::string &infilename)
