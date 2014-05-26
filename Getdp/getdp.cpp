@@ -20,17 +20,10 @@
 /*********************************************************************\
 This program is written for parsing output file (TDP)
 
-***Get the given slices z-value
-
-Usage: getdp file1 file2 slice_order
-	file1: output file (TDP)
-	file2: write into the extrated data
-	slice_order: slice record order
-
 Author: Tong ZHANG
 e-mail: tzhang@sinap.ac.cn
 Created Time: 10:05, Dec. 9th, 2011
-Last update:  22:38, May 25th, 2014
+Last update:  15:18, May 26th, 2014
 \*********************************************************************/
 
 #include "getdp_fun.h"
