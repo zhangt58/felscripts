@@ -7,7 +7,8 @@ double findKeywordValue(std::string &filename, std::string &keystr)
 	infile.open(filename.c_str(), std::ifstream::in);
 	if(!infile)
 	{
-		std::cout << filename << " can not open!" << std::endl;
+		std::cout << filename << " File can not open!" << "\n";
+		std::cout << "Please check the input file" << "\n";
 		exit(1);
 	}
     char buf[MAX_CHARS_PER_LINE];
@@ -33,7 +34,8 @@ double findMainKeyValue(std::string &filename, std::string &keystr)
 	infile.open(filename.c_str(), std::ifstream::in);
 	if(!infile)
 	{
-		std::cout << filename << " can not open!" << std::endl;
+		std::cout << filename << " File can not open!" << "\n";
+		std::cout << "Please check the output file" << "\n";
 		exit(1);
 	}
 	char buf[MAX_CHARS_PER_LINE];
@@ -63,7 +65,8 @@ int parseOpts(int argc, char* argv[],
 		      std::string &infilename, std::string &outfilename,
 			  int &isOrder, double &dsPosition,
 			  int &izOrder, double &dzPosition,
-			  int &sFlag, int &zFlag)
+			  int &sFlag, int &zFlag,
+			  int &ishowRange)
 {
 	for (int i=1; i < argc-1; i+=2)
 	{
@@ -83,6 +86,8 @@ int parseOpts(int argc, char* argv[],
 			sFlag = atoi(argv[i+1]);
 		else if (argv[i] == std::string("--z"))
 			zFlag = atoi(argv[i+1]);
+		else if (argv[i] == std::string("--showRange"))
+			ishowRange = atoi(argv[i+1]);
 		else
 			return 0; // unknown options
 	}
@@ -94,12 +99,10 @@ void checkParams(int argc, char* argv[])
 	if (argc == 1 || (argc > 1 && (argv[1] == std::string("--help") || argv[1] == std::string("-h"))))
 	{
 		std::cout << "Usage: "<< argv[0] << " [--flag value]..." << "\n\n";
-		std::cout << "Usage Example (1): " << argv[0] << " --input infilename" 
-												      << " --output outfilename"
-												      << " --s 1" 
-												      << " --sOrder 100" << "\n";
-		std::cout << "Usage Example (2): " << argv[0] << " --help" << "\n"; 
-		std::cout << "Usage Example (3): " << argv[0] << " --showRange --input infilename" << "\n";
+		std::cout << "Usage Example (1): " << argv[0] << " --input infilename" << " --output outfilename" << " --s 1" << " --sOrder 100" << "\n";
+		std::cout << "Usage Example (2): " << argv[0] << " --input infilename" << " --output outfilename" << " --z 1" << " --zOrder 100" << "\n";
+		std::cout << "Usage Example (3): " << argv[0] << " --help" << "\n"; 
+		std::cout << "Usage Example (4): " << argv[0] << " --input infilename --showRange 1" << "\n";
 
 		std::cout << "\n";
 		
@@ -137,10 +140,12 @@ void checkParams(int argc, char* argv[])
 		std::cout << "\t\t" << "Extract zentry position in [m]" << "\n";
 		std::cout << "\t\t" << "if --zOrder and --zPos are all" << "\n";
 		std::cout << "\t\t"	<< "defined, --zOrder is used by " << argv[0] << "\n";
+		std::cout << "\t" 	<< "--showRange"   << " ishowRange"   << "\n";
+		std::cout << "\t\t" << "Flag for showing record range, default 0," << "\n";
+		std::cout << "\t\t" << "should be used by given --input infilename" << "\n";
 		std::cout << std::endl;
 		exit(1);
 	}
-	if (argc == 4 && )
 }
 
 void showRange(std::string &infilename)
@@ -157,7 +162,8 @@ void showRange(std::string &infilename)
 	double sliceSep = findKeywordValue(infilename, keystr5);
 	double maxZpos  = (totalZentri - 1)*delz*xlamd;
 	double maxSpos  = (totalSlices - 1)*sliceSep;
-	std::cout << "The z-pos range: " << "0[1]" << "---" << maxZpos << "[" << totalZentri << "]" << std::endl;
-	std::cout << "Ths s-pos range: " << "0[1]" << "---" << maxSpos << "[" << totalSlices << "]" << std::endl;
+	std::cout << "The z record and s record range:" << "\n";
+	std::cout << "\t" << "z-pos range: " << "0[1]" << "---" << maxZpos << " m" << " [" << totalZentri << "]" << "\n";
+	std::cout << "\t" << "s-pos range: " << "0[1]" << "---" << maxSpos << " m" << " [" << totalSlices << "]" << "\n";
+	std::cout << std::endl;
 }
-

@@ -33,7 +33,8 @@ int parseOpts(int argc, char* argv[],
 		      std::string &infilename, std::string &outfilename,
 			  int &isOrder, double &dsPosition,
 			  int &izOrder, double &dzPosition,
-			  int &sFlag, int &zFlag);
+			  int &sFlag, int &zFlag,
+			  int &ishowRange);
 
 // check input options
 void checkParams(int argc, char* argv[]);
