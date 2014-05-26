@@ -38,4 +38,7 @@ int parseOpts(int argc, char* argv[],
 // check input options
 void checkParams(int argc, char* argv[]);
 
+// show s/z order range, min to max
+void showRange(std::string &infilename);
+
 #endif //_GETDP_FUN_H

@@ -136,3 +136,21 @@ void checkParams(int argc, char* argv[])
 	}
 }
 
+void showRange(std::string &infilename)
+{
+	std::string keystr1 = "history";
+	std::string keystr2 = "entries";
+	std::string keystr3 = "delz";
+	std::string keystr4 = "xlamd";
+	std::string keystr5 = "seperation";
+	int totalSlices = findKeywordValue(infilename, keystr1);
+	int totalZentri = findKeywordValue(infilename, keystr2);
+	double delz     = findMainKeyValue(infilename, keystr3);
+	double xlamd    = findMainKeyValue(infilename, keystr4);
+	double sliceSep = findKeywordValue(infilename, keystr5);
+	double maxZpos  = (totalZentri - 1)*delz*xlamd;
+	double maxSpos  = (totalSlices - 1)*sliceSep;
+	std::cout << "The z-pos range: " << "0[1]" << "---" << maxZpos << "[" << totalZentri << "]" << std::endl;
+	std::cout << "Ths s-pos range: " << "0[1]" << "---" << maxSpos << "[" << totalSlices << "]" << std::endl;
+}
+

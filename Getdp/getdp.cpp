@@ -50,6 +50,13 @@ int main(int argc, char **argv)
 	ifstream file1;
 	ofstream file2;
 
+	showRange(file1name);
+
+	string keystr1 = "history";
+	string keystr2 = "entries";
+	int totalSlices = findKeywordValue(file1name, keystr1);
+	int totalZentri = findKeywordValue(file1name, keystr2);
+
 	if (sFlag)
 	{
 		if (dsPos) // given s-pos in meter
@@ -57,6 +64,8 @@ int main(int argc, char **argv)
 			string keystr = "seperation";     // define the keyword string, to find its value
 			double slice_sepe = findKeywordValue(file1name, keystr);
 			isOrder = dsPos/slice_sepe+1; // transform s_pos into s-record order
+			if (isOrder < 1) isOrder = 1;
+			if (isOrder > totalSlices) isOrder = totalSlices;
 		}
 
 		file1.open(file1name.c_str(), ifstream::in);
@@ -110,6 +119,8 @@ int main(int argc, char **argv)
 			double delz  = findMainKeyValue(file1name, keystr1);
 			double xlamd = findMainKeyValue(file1name, keystr2);
 			izOrder = dzPos/(delz*xlamd)+1; 	// transform z-pos into z-record order
+			if (izOrder < 1) izOrder = 1;
+			if (izOrder > totalZentri) izOrder = totalZentri;
 		}
 
 		file1.open(file1name.c_str(), ifstream::in);
