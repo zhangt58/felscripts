@@ -38,10 +38,11 @@ int main(int argc, char **argv)
 	string file1name, file2name;
 	int isOrder = 0, izOrder = 0;
 	int sFlag   = 0, zFlag   = 0;
+	int ishowRange = 0;
 	double dsPos = 0, dzPos = 0;
 	
 	if (!parseOpts(argc, argv, file1name, file2name, 
-				   isOrder, dsPos, izOrder, dzPos, sFlag, zFlag))
+				   isOrder, dsPos, izOrder, dzPos, sFlag, zFlag, ishowRange))
 	{
 		cerr << "Unknown flags, please check!\n";
 		exit(1);
@@ -50,12 +51,28 @@ int main(int argc, char **argv)
 	ifstream file1;
 	ofstream file2;
 
-	showRange(file1name);
+	if (ishowRange)
+	{
+		showRange(file1name);
+		exit(1);
+	}
+
+	if (argc < 9 )
+	{
+		cout << "Not enough parameters!" << "\n";
+		exit(1);
+	}
 
 	string keystr1 = "history";
 	string keystr2 = "entries";
 	int totalSlices = findKeywordValue(file1name, keystr1);
 	int totalZentri = findKeywordValue(file1name, keystr2);
+
+	if (sFlag == 0 && zFlag == 0)
+	{
+		cout << "Please define the sFlag (--s) or zFlag (--z) value." << "\n";
+		exit(1);
+	}
 
 	if (sFlag)
 	{
