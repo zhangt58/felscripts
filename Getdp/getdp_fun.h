@@ -20,7 +20,22 @@ double findKeywordValue(std::string &filename, std::string &keystr);
 // meshsize
 
 double findMainKeyValue(std::string &filename, std::string &keystr);
+// keystr list:
+// delz
+// xlamd
+// etc.
 
-std::string dToE(std::string cppstr);
+// convert scientific notation with D into E, e.g. 1.0D+01 to be 1.0E+01
+std::string dToE(std::string cppstr); 
+
+// parse input options
+int parseOpts(int argc, char* argv[], 
+		      std::string &infilename, std::string &outfilename,
+			  int &isOrder, double &dsPosition,
+			  int &izOrder, double &dzPosition,
+			  int &sFlag, int &zFlag);
+
+// check input options
+void checkParams(int argc, char* argv[]);
 
 #endif //_GETDP_FUN_H
