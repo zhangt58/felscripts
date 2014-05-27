@@ -65,8 +65,8 @@ int main(int argc, char **argv)
 
 	string keystr1 = "history";
 	string keystr2 = "entries";
-	int totalSlices = findKeywordValue(file1name, keystr1);
-	int totalZentri = findKeywordValue(file1name, keystr2);
+	int totalSlices = (int)findKeywordValue(file1name, keystr1);
+	int totalZentri = (int)findKeywordValue(file1name, keystr2);
 
 	if (sFlag == 0 && zFlag == 0)
 	{
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
 		{
 			string keystr = "seperation";     // define the keyword string, to find its value
 			double slice_sepe = findKeywordValue(file1name, keystr);
-			isOrder = dsPos/slice_sepe+1; // transform s_pos into s-record order
+			isOrder = (int) (dsPos/slice_sepe+1.0); // transform s_pos into s-record order
 			if (isOrder < 1) isOrder = 1;
 			if (isOrder > totalSlices) isOrder = totalSlices;
 		}
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
 			string keystr2 = "xlamd";
 			double delz  = findMainKeyValue(file1name, keystr1);
 			double xlamd = findMainKeyValue(file1name, keystr2);
-			izOrder = dzPos/(delz*xlamd)+1; 	// transform z-pos into z-record order
+			izOrder = (int)(dzPos/(delz*xlamd)+1.0); 	// transform z-pos into z-record order
 			if (izOrder < 1) izOrder = 1;
 			if (izOrder > totalZentri) izOrder = totalZentri;
 		}

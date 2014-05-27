@@ -155,8 +155,8 @@ void showRange(std::string &infilename)
 	std::string keystr3 = "delz";
 	std::string keystr4 = "xlamd";
 	std::string keystr5 = "seperation";
-	int totalSlices = findKeywordValue(infilename, keystr1);
-	int totalZentri = findKeywordValue(infilename, keystr2);
+	int totalSlices = (int)findKeywordValue(infilename, keystr1);
+	int totalZentri = (int)findKeywordValue(infilename, keystr2);
 	double delz     = findMainKeyValue(infilename, keystr3);
 	double xlamd    = findMainKeyValue(infilename, keystr4);
 	double sliceSep = findKeywordValue(infilename, keystr5);
