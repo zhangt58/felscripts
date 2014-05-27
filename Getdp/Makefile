@@ -1,13 +1,12 @@
 CC = g++
-OPTIONS = -O2 -Wall -Wconversion -s
+CXXFLAGS = -O2 -Wall -Wconversion -s -static
 #-m32
-#-static
 EXEC = getdp
 OBJECTS = getdp.o getdp_fun.o
 
 all: $(EXEC)
 getdp: $(OBJECTS)
-	$(CC) $(OPTIONS) -o $@ $(OBJECTS)
+	$(CC) $(CXXFLAGS) -o $@ $(OBJECTS)
 
 getdp.o: getdp_fun.h
 getdp_fun.o: getdp_fun.h
