@@ -129,7 +129,7 @@ int main(int argc, char **argv)
 
 	if (zFlag)
 	{
-		if (dsPos)
+		if (dzPos)
 		{
 			string keystr1 = "delz";
 			string keystr2 = "xlamd";
