@@ -51,7 +51,7 @@ spphi="/tmp/spphi.$$"
 nslice=$(${GREP} -m1 nslice ${outfile} | awk '{print $NF}')
 wvlgth=$(${GREP} -m1 wavele ${outfile} | awk '{print $1}')
 
-awk '{printf("%6.6e %6.6e %6.6e\n",(NR-1)*'${deltsli}',$1,$4)}' ${file1} > ${spphi}
+awk '{printf("%6.6e %6.6e %6.6e %6.6e\n",(NR-1)*'${deltsli}',$1,$3,$4)}' ${file1} > ${spphi}
 calspe.m ${spphi} ${file2} ${nslice} ${wvlgth}
 #cp ${spphi} ./spphi
 mv ${spphi} ${specdir}/${1%%.out}.spph

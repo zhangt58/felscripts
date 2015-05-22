@@ -14,8 +14,8 @@ l0      = str2num(args{4})*1e9; %m->nm
 
 a    = dlmread(infile);
 s    = a(:,1);	%[m]
-p    = a(:,2);	%[W]
-phi  = a(:,3);	%[rad]
+p    = a(:,3);	%[W]
+phi  = a(:,4);	%[rad]
 
 c0   = 299.792458;	%[nm/fs]
 w0   = 2*pi*c0/l0;

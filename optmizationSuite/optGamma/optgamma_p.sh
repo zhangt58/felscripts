@@ -39,7 +39,8 @@ function opt_sec()
 totalCores=$(grep processor /proc/cpuinfo | wc -l)
 Ncores=${1:-$totalCores}
 
-Nsplit=$(echo "(${endpoint}-${startpoint})/${steppoint}/${Ncores}" | bc)
+#Nsplit=$(echo "(${endpoint}-${startpoint})/${steppoint}/${Ncores}" | bc)
+Nsplit=$(echo "(${endpoint}-${startpoint})/${Ncores}" | bc)
 
 for((i=1;i<=${Ncores};i++))
 do

@@ -71,6 +71,8 @@ fid = fopen(infile, 'r');
 % get the nslice value from the infile size, double (64 bits, 6 Bytes)
 nslice = stat(fid).size/8/npart/6;
 
+% Matlab: dir(filename) to get file attributes
+
 
 if (sliceRange == 0) || (min(sliceRange) > nslice) % i.e. not given args{5}, sliceRange rolls back to default value
 	sliceRange = 1:1:nslice;

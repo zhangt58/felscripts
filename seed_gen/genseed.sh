@@ -24,6 +24,6 @@ seedfile=$2
 zoffset=$3
 #zoffset unit: meter
 
-./genseedscript.m ${powermax} 2.5 ${zoffset} ${seedfile}
+./genseedscript.m ${powermax} 14.5 ${zoffset} ${seedfile}
 size=$(wc -l < ${seedfile})
 sed -i "1i\?columns zpos prad0 zrayl zwaist\n$i${size}" ${seedfile}

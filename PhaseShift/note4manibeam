@@ -1,0 +1,27 @@
+slice#0
+gamma: 0n : 1n-1
+theta: 1n : 2n-1
+x    : 2n : 3n-1
+y    : 3n : 4n-1
+px   : 4n : 5n-1
+py   : 5n : 6n-1
+
+slice#1 = slice#0 + 6n
+gamma: 6n+0n : 6n+1n-1
+theta: 6n+1n : 6n+2n-1
+x    : 6n+2n : 6n+3n-1
+y    : 6n+3n : 6n+4n-1
+px   : 6n+4n : 6n+5n-1
+py   : 6n+5n : 6n+6n-1
+
+slice#i = slice#0 + 6in
+gamma: 6in+0n : 6in+1n-1 ==> (6i+0)n : (6i+1)n-1
+theta: 6in+1n : 6in+2n-1
+x    : 6in+2n : 6in+3n-1
+y    : 6in+3n : 6in+4n-1
+px   : 6in+4n : 6in+5n-1
+py   : 6in+5n : 6in+6n-1
+
+
+
+
