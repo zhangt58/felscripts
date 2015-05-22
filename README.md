@@ -1,2 +1,2 @@
 # felscripts
-Scripts made for free-electron laser numerical studies
+Scripts made for numerical studies of free-electron laser 
