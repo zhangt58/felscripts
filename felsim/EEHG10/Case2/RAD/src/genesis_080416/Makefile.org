@@ -1,0 +1,27 @@
+#
+# GENESIS makefile
+#
+#
+SOURCE= timerec.f initrun.f check.f diagno.f esource.f field.f \
+ incoherent.f loadbeam.f loadrad.f magfield.f \
+ main.f math.f output.f partsim.f pushp.f \
+ input.f rpos.f scan.f source.f stepz.f \
+ tdepend.f track.f string.f
+#
+#
+OBJECTS =$(SOURCE:.f=.o)
+#
+# targets
+#
+GENESIS:	$(SOURCE)
+	f77 -s -g -w -B100  -O  -f -o genesis $(SOURCE) $(LIB)
+#	f77 -s -g -trap=INVALID,DIVBYZERO -B101 -w -N114 -O -N32 -f -o genesis $(SOURCE) $(LIB)
+	@echo ' ******* end of linking ****** '
+
+
+
+
+
+
+
+

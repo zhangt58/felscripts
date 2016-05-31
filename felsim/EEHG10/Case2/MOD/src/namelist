@@ -1,0 +1,50 @@
+#LCLS Laser Heater setup
+
+#seedlaser
+
+seed_wavelength = 2182.0e-9
+seed_power 		= 1e9
+seed_tau 		= 20e-15
+seed_omega0 	= 1.44e-3
+seed_ceo 		= 0
+seed_offset  	= 0
+
+#element switch
+#use_element 	= "dipole"
+use_element 	= "undulator"
+print_list 		= 1
+#:1 print namelist
+
+#scan control
+scan_flag 		= 0
+scan_echo 		= 1
+scan_param 		= "dipole_field"
+scan_begin 		= 0.002
+scan_step 		= 0.002
+scan_end 		= 0.8
+
+#dipole
+dipole_nstep 	= 100
+dipole_length 	= 0.5
+dipole_field 	= 0.191
+dipole_type 	= 0
+#dipole_type=0: full, 1: half
+
+#undulator
+undulator_period = 0.50
+undulator_field  = 0.223;
+undulator_phi0   = 0.0;
+undulator_num    = 1;
+undulator_nstep  = 100;
+undulator_idmpx  = 0;
+
+#inputfile
+#infilename 		= "./datafiles/ideal.txt"
+infilename 	  	= "./test/test2"
+npart  			= 10000
+
+#outputfile
+outfilename 	= "./test/test3"
+#outfilename 	= "./scan/scan_lcls_LH_d"
+#outfilename 	= "./scan/scan_undulator_seedwavelength"
+#outfilename 	= "./phasespace/lcls_LH"

@@ -1,0 +1,21 @@
+c     ---------------------------------------------------------------------
+c     working-space (no cross-use of array values in call. subroutines)
+c
+      real*8  k2gg,k2pp,k3gg,k3pp,p1,p2
+      complex*16 crwork3,crwork2,cpart1,cpart2,cpart3
+      integer iwork
+c
+      dimension k2gg(npmax),k2pp(npmax),k3gg(npmax),k3pp(npmax),
+     +          p1(npmax),p2(npmax),cpart1(npmax*nhmax),cpart2(npmax),
+     +          crwork3(4*ncmax*ncmax*nhmax),cpart3(npmax),iwork(npmax)
+c
+      common /workspace/
+     +          crwork3,
+     +          cpart1,cpart2,cpart3,
+     +          k2gg,k2pp,k3gg,k3pp,
+     +          p1,p2,
+     +          iwork
+
+c
+c
+c

@@ -1,0 +1,395 @@
+      real*8 function gasham(j)
+c     ==================================================================
+c     gaussian hammersley sequence
+c     reinitializable
+c     ------------------------------------------------------------------
+c
+      integer j,jmax,icall,iset,jd
+      parameter (jmax=26)
+      real*8 v1,v2,hammv,r,fac,gset
+      dimension iset(jmax),gset(jmax)
+      data icall/0/,iset/jmax*0/,gset/jmax*0.d0/
+c
+      if((icall.eq.0).or.(j.lt.0)) then
+	 do jd=1,jmax
+	    iset(jd)=0
+	 end do
+	 icall=1
+      end if
+      if(iset(j).eq.0) then
+ 1       v1=hammv(j)*2.d0-1.d0
+	 v2=hammv(j+1)*2.d0-1.d0
+	 r=v1**2+v2**2
+	 if(r.ge.1..or.r.eq.0.)goto 1
+	 fac=dsqrt(-2.d0*dlog(1.d0-r)/r)
+	 gset(j)=v1*fac
+	 gasham =v2*fac
+	 iset(j)=1
+      else
+	 gasham=gset(j)
+	 iset(j)=0
+      end if
+c
+      return
+      end     !gasham
+c
+c
+c
+      real*8 function hammv(j)
+c     ==================================================================
+c     uniform hammersley sequence
+c     reinitializable
+c     ------------------------------------------------------------------
+c
+      real*8 xs,xsi
+      integer j,jmax,i,nbase,i1,i2,icall,jd
+      parameter (jmax=26)
+      dimension nbase(jmax),i(jmax),xs(jmax),xsi(jmax)
+      dimension i1(jmax),i2(jmax)
+      data nbase/2.,3.,5.,7.,11.,13.,17.,19.,23.,29.,31.,37.,41.,43.,
+     1          47.,53.,59.,61.,67.,71.,73.,79.,83.,89.,97.,101./
+      data icall/0/
+      data i/jmax*0/
+c
+      if ((icall.eq.0).or.(j.lt.0)) then
+	 do jd=1,jmax
+	    i(jd)=0
+	 end do
+	 icall=1
+         j=abs(j)
+      end if
+      xs (j)=0.d0
+      xsi(j)=1.0d0
+      i(j)= i(j)+1
+      i2 (j)= i(j)
+ 10   xsi(j)=xsi(j)/float(nbase(j))
+      i1 (j)= i2(j)/nbase(j)
+      xs (j)= xs(j)+(i2(j)-nbase(j)*i1(j))*xsi(j)
+      i2 (j)= i1(j)
+      if(i2(j).gt.0) goto 10
+      hammv=xs(j)
+c
+      return
+      end     !hammv
+
+c
+c
+c
+      real*8 function ran1(idum)
+c     ==================================================================
+c     random number generator from numerical recipes (p. 272f).
+c     ------------------------------------------------------------------
+c
+      integer idum,im1,im2,imm1,ia1,ia2,iq1,iq2,ir1,ir2,ntab,ndiv
+      real*8  am,eps,rnmx
+      parameter (im1=2147483563,im2=2147483399,am=1./im1,imm1=im1-1,
+     +           ia1=40014,ia2=40692,iq1=53668,iq2=52774,ir1=12211,
+     +           ir2=3791,ntab=32,ndiv=1+imm1/ntab,eps=1.2d-40,
+     +           rnmx=1.d0-eps)
+      integer idum2,j,k,iv(ntab),iy
+      save iv,iy,idum2
+      data idum2/123456789/,iv/ntab*0/,iy/0/
+c
+      if (idum.le.0) then
+          idum=max(-idum,1)
+          idum2=idum
+          do j=ntab+8,1,-1
+             k=idum/iq1
+             idum=ia1*(idum-k*iq1)-k*ir1
+             if (idum.lt.0) idum=idum+im1
+             if (j.le.ntab) iv(j)=idum
+          enddo
+          iy=iv(1)
+      endif
+      k=idum/iq1
+      idum=ia1*(idum-k*iq1)-k*ir1
+      if (idum.lt.0) idum=idum+im1
+      k=idum2/iq2
+      idum2=ia2*(idum2-k*iq2)-k*ir2
+      if (idum2.lt.0) idum2=idum2+im2
+      j=1+iy/ndiv
+      iy=iv(j)-idum2
+      iv(j)=idum 
+      if (iy.lt.1) iy=iy+imm1
+      ran1=min(am*iy,rnmx)
+      return
+      end
+c
+c
+      real*8 function gasran(idum)
+c     ==================================================================
+c     random number generator from numerical recipes (p. 272f).
+c     ------------------------------------------------------------------
+c
+      integer iset,idum
+      real*8 v1,v2,ran1,r,fac,gset
+      save gset,iset
+c
+      if(iset.eq.0) then
+ 1       v1=ran1(idum)*2.d0-1.d0
+	     v2=ran1(idum)*2.d0-1.d0
+	     r=v1**2+v2**2
+	     if(r.ge.1..or.r.eq.0.)goto 1
+	     fac=dsqrt(-2.d0*dlog(1.d0-r)/r)
+	     gset=v1*fac
+	     gasran =v2*fac
+	     iset=1
+	  else
+	     gasran=gset
+	     iset=0
+      end if
+c
+      return
+      end
+c
+c
+c
+      function bessj0(x)
+c     ==================================================================
+c     bessel function j0 - numerical rec.
+c     ------------------------------------------------------------------
+c
+      real*8 y,p1,p2,p3,p4,p5,q1,q2,q3,q4,q5,r1,r2,r3,r4,r5,r6,
+     *    s1,s2,s3,s4,s5,s6, x, bessj0, ax, z, xx
+      data p1,p2,p3,p4,p5/1.d0,-.1098628627d-2,.2734510407d-4,
+     *    -.2073370639d-5,.2093887211d-6/, q1,q2,q3,q4,q5/-.1562499995d-
+     *1,
+     *    .1430488765d-3,-.6911147651d-5,.7621095161d-6,-.934945152d-7/
+      data r1,r2,r3,r4,r5,r6/57568490574.d0,-13362590354.d0,651619640.7d
+     *0,
+     *    -11214424.18d0,77392.33017d0,-184.9052456d0/,
+     *    s1,s2,s3,s4,s5,s6/57568490411.d0,1029532985.d0,
+     *    9494680.718d0,59272.64853d0,267.8532712d0,1.d0/
+      if(abs(x).lt.8.)then
+         y=x**2
+         bessj0=(r1+y*(r2+y*(r3+y*(r4+y*(r5+y*r6)))))
+     *      /(s1+y*(s2+y*(s3+y*(s4+y*(s5+y*s6)))))
+         else
+         ax=abs(x)
+         z=8./ax
+         y=z**2
+         xx=ax-.785398164
+         bessj0=sqrt(.636619772/ax)*(cos(xx)*(p1+y*(p2+y*(p3+y*(p4+y
+     *      *p5))))-z*sin(xx)*(q1+y*(q2+y*(q3+y*(q4+y*q5)))))
+      endif
+c
+      return
+      end
+c
+c
+c
+      function bessj1(x)
+c     ==================================================================
+c     bessel function j1 - numerical rec.
+c     ------------------------------------------------------------------
+c
+      real*8 y,p1,p2,p3,p4,p5,q1,q2,q3,q4,q5,r1,r2,r3,r4,r5,r6,
+     *    s1,s2,s3,s4,s5,s6, x, bessj1, ax, z, xx
+      data r1,r2,r3,r4,r5,r6/72362614232.d0,-7895059235.d0,242396853.1d0
+     *,
+     *    -2972611.439d0,15704.48260d0,-30.16036606d0/,
+     *    s1,s2,s3,s4,s5,s6/144725228442.d0,2300535178.d0,
+     *    18583304.74d0,99447.43394d0,376.9991397d0,1.d0/
+      data p1,p2,p3,p4,p5/1.d0,.183105d-2,-.3516396496d-4,.2457520174d-5
+     *,
+     *    -.240337019d-6/, q1,q2,q3,q4,q5/.04687499995d0,-.2002690873d-3
+     *,
+     *    .8449199096d-5,-.88228987d-6,.105787412d-6/
+      if(abs(x).lt.8.)then
+         y=x**2
+         bessj1=x*(r1+y*(r2+y*(r3+y*(r4+y*(r5+y*r6)))))
+     *      /(s1+y*(s2+y*(s3+y*(s4+y*(s5+y*s6)))))
+         else
+         ax=abs(x)
+         z=8./ax
+         y=z**2
+         xx=ax-2.356194491
+         bessj1=sqrt(.636619772/ax)*(cos(xx)*(p1+y*(p2+y*(p3+y*(p4+y
+     *      *p5))))-z*sin(xx)*(q1+y*(q2+y*(q3+y*(q4+y*q5)))))
+     *      *sign(1.d0,x)
+      endif
+c
+      return
+      end
+c
+c
+      function bessj(n,x)
+c     ==================================================================
+c     bessel function of order n - taken from numerical rec.
+c     ------------------------------------------------------------------
+c
+      integer n, IACC
+      real*8 bessj, x, BIGNO, BIGNI
+      parameter (IACC=40,BIGNO=1.E10, BIGNI=1E-10)
+      integer j,jsum,m
+      real*8 ax,bj,bjm,bjp,sum,bessj0,bessj1,tox
+          
+      ax = abs(x)
+      if (ax.eq.0) then
+        bessj=0
+      else if (ax.gt.float(n)) then
+        tox = 2./ax
+        bjm = bessj0(ax)
+        bj  = bessj1(ax)
+        do j = 1, n-1
+            bjp = j*tox*bj-bjm
+            bjm=bj
+            bj=bjp
+        enddo
+        bessj = bj
+      else
+        tox=2./ax
+        m = 2*((n+int(sqrt(float(IACC*n))))/2)
+        bessj=0.0
+        jsum=0
+        sum=0.0
+        bjp=0.
+        bj=1.
+        do j=m,1,-1
+            bjm=j*tox*bj-bjp
+            bjp=bj
+            bj=bjm
+            if(abs(bj).gt.BIGNO) then
+                bj=bj*BIGNI
+                bjp=bjp*BIGNI
+                bessj=bessj*BIGNI
+                sum=sum*BIGNI
+            endif
+            if(jsum.ne.0) sum = sum +bj
+            jsum = 1-jsum
+            if (j.eq.n) bessj=bjp
+        enddo      
+        sum=2.0*sum-bj
+        bessj=bessj/sum
+      endif
+      
+      if(x.lt.0..and.mod(n,2).eq.1) bessj=-bessj
+      
+      if(n.eq.0) then
+        bessj=bessj0(ax)
+      endif
+      
+      if(n.eq.1) then
+        bessj= bessj1(ax)
+      endif
+      
+      return
+      end  
+c
+c
+      integer function luf(x,table,n)
+c     ==================================================================
+c     luf is a table lookup function that locates a value x between
+c     elements of an increasing table of size n.
+c     luf is the value of the index after the table location which
+c     x corresponds to.
+c     the routine uses a bisection methode (numerical rec.)
+c     the array table must be monotonic
+c     luf=1 or luf=n+2 is returned to indicate out of range
+c     ------------------------------------------------------------------
+c
+      real*8 x,table(*)
+      integer n,jl,ju,jm
+c
+      jl=0            !lower limit
+      ju=n+1          !upper limit
+ 10   if(ju-jl.gt.1) then
+	  jm=(ju+jl)/2    !midpoint
+	  if((table(n).gt.table(1)).eqv.(x.gt.table(jm))) then
+	    jl=jm
+	    else
+	    ju=jm
+	  endif
+	  goto 10
+      endif
+      luf=jl+1
+c
+      return
+      end     !luf
+c
+c
+c
+      subroutine fourn(data,nn,ndim,isign)
+c     =================================================================
+c     multidimensional fft of complex values (num. rec.)
+c     number of elements of data must be a power of 2!
+c     nn = number of dimension
+c     ndim(nn) = elements per dimension
+c     isign = 1 fft, = -1 inverse fft     
+c     -----------------------------------------------------------------
+c
+      integer isign,ndim,nn(ndim)
+      real*8 data(*)
+      integer i1,i2,i2rev,i3,i3rev,ibit,idim,ifp1,ifp2,ip1,ip2,ip3,k1,
+     *k2,n,nprev,nrem,ntot
+      real*8 tempi,tempr
+      double precision theta,wi,wpi,wpr,wr,wtemp
+      ntot=1
+      do 11 idim=1,ndim
+        ntot=ntot*nn(idim)
+11    continue
+      nprev=1
+      do 18 idim=1,ndim
+        n=nn(idim)
+        nrem=ntot/(n*nprev)
+        ip1=2*nprev
+        ip2=ip1*n
+        ip3=ip2*nrem
+        i2rev=1
+        do 14 i2=1,ip2,ip1
+          if(i2.lt.i2rev)then
+            do 13 i1=i2,i2+ip1-2,2
+              do 12 i3=i1,ip3,ip2
+                i3rev=i2rev+i3-i2
+                tempr=data(i3)
+                tempi=data(i3+1)
+                data(i3)=data(i3rev)
+                data(i3+1)=data(i3rev+1)
+                data(i3rev)=tempr
+                data(i3rev+1)=tempi
+12            continue
+13          continue
+          endif
+          ibit=ip2/2
+1         if ((ibit.ge.ip1).and.(i2rev.gt.ibit)) then
+            i2rev=i2rev-ibit
+            ibit=ibit/2
+          goto 1
+          endif
+          i2rev=i2rev+ibit
+14      continue
+        ifp1=ip1
+2       if(ifp1.lt.ip2)then
+          ifp2=2*ifp1
+          theta=isign*6.28318530717959d0/(ifp2/ip1)
+          wpr=-2.d0*sin(0.5d0*theta)**2
+          wpi=sin(theta)
+          wr=1.d0
+          wi=0.d0
+          do 17 i3=1,ifp1,ip1
+            do 16 i1=i3,i3+ip1-2,2
+              do 15 i2=i1,ip3,ifp2
+                k1=i2
+                k2=k1+ifp1
+                tempr=sngl(wr)*data(k2)-sngl(wi)*data(k2+1)
+                tempi=sngl(wr)*data(k2+1)+sngl(wi)*data(k2)
+                data(k2)=data(k1)-tempr
+                data(k2+1)=data(k1+1)-tempi
+                data(k1)=data(k1)+tempr
+                data(k1+1)=data(k1+1)+tempi
+15            continue
+16          continue
+            wtemp=wr
+            wr=wr*wpr-wi*wpi+wr
+            wi=wi*wpr+wtemp*wpi+wi
+17        continue
+          ifp1=ifp2
+        goto 2
+        endif
+        nprev=n*nprev
+18    continue
+      return
+      end
+
+
+

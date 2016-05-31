@@ -1,0 +1,9 @@
+      integer MPI_COMM_WORLD,MPI_INTEGER,MPI_DOUBLE_COMPLEX
+	integer MPI_CHARACTER,MPI_STATUS_SIZE
+ 
+	parameter(
+     +    MPI_COMM_WORLD =1,
+     +    MPI_INTEGER=1,
+     +     MPI_DOUBLE_COMPLEX=1,
+     +   MPI_CHARACTER=1,
+     +   MPI_STATUS_SIZE=1)

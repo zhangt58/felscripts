@@ -1,0 +1,23 @@
+c     file:   timerec.com
+c
+c     time dependent common block - huge!!!!
+c     ------------------------------------------------------------------
+c
+c
+      integer ntmax,nofile
+c
+      parameter(
+     +          ntmax  = 151*151*500, !must be > than ncar*ncar*nslp(98)
+     +          nofile = 0)   !<>0 -> slippage is stored on disk
+c
+c     --------------------------------------------------------------------
+c     slippage field
+c
+      complex*16 crtime
+      integer   ntmp
+     
+c
+      common /tslipcom/crtime,ntmp
+c
+      dimension  crtime(ntmax*nhmax)
+c

@@ -1,0 +1,27 @@
+c     ------------------------------------------------------------------
+c     diagnostic
+c
+      real*8 error,gain,whalf,logp,powmid,phimid,
+     +       pmodhist,pradol,pinit,dgamhist,ffield,
+     +       gamhist,xrms,yrms,diver,xpos,ypos,bunphase,
+     +       pgainhist,pmidhist,pradoln
+      integer ihist
+c
+      common /diagcom/
+     r        error,  gain,  phimid,
+     r        whalf,   logp,   powmid,
+     r        xrms,   yrms, xpos,ypos,
+     r        pmodhist, gamhist, diver,
+     r        pradol, pinit, bunphase,
+     r        dgamhist, ffield,pradoln,
+     r        pgainhist,pmidhist,
+     i        ihist
+      dimension
+     r        pmodhist(nhmax,nzmax),error(nzmax),gain(nzmax),
+     r        whalf(nzmax),logp(nzmax),phimid(nhmax,nzmax),
+     r	      xrms(nzmax),yrms(nzmax),xpos(nzmax),ypos(nzmax),
+     r        gamhist(nzmax),diver(nzmax),dgamhist(nzmax),
+     r        ffield(nhmax,nzmax),bunphase(nhmax,nzmax), 
+     r        pgainhist(nhmax,nzmax),pmidhist(nhmax,nzmax),
+     r        pradoln(nhmax)	 
+c

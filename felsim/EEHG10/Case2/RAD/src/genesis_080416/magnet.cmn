@@ -1,0 +1,18 @@
+c     ------------------------------------------------------------------
+c     wiggler parameters
+c
+      real*8  fbess,awdz,solz,awz,qfld,awerx,awery,magversion,unitlength
+      real*8  dqfx,dqfy,awdx,awdy
+      integer iran,nstepz,itap
+c
+      common /wigcom/
+     r       awz,awdz,solz,awerx,awery,qfld,fbess,magversion,unitlength,
+     r       dqfx,dqfy,awdx,awdy,
+     i       iran,nstepz,itap
+c
+      dimension
+     r        awz(0:nzmax),awery(nzmax),solz(nzmax),
+     r        awerx(nzmax),qfld(0:nzmax),awdz(nzmax),
+     r        dqfx(0:nzmax),dqfy(0:nzmax),awdx(0:nzmax),
+     r		  awdy(0:nzmax)
+c

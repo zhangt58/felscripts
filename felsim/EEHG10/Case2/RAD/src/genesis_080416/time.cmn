@@ -1,0 +1,26 @@
+c     --------------------------------------------------------------------
+c     time dependency of bunch + slippage field
+c
+      real*8  tgam0,tdgam,temitx,temity,txrms,tyrms,txpos,typos,
+     +        tpxpos,tpypos,talphx,talphy,tcurrent,tpos,tloss,
+     +        distgam,distx,disty,distpx,distpy,distt,tradpos,
+     +        tzrayl,tzwaist,tprad0,tradphase
+      integer ndata,nsep,nslp,ndist,nraddata  
+c
+      common /tbunchcom/
+     r        tgam0,tdgam,temitx,temity,txrms,tyrms,txpos,typos,
+     r        tpxpos,tpypos,talphx,talphy,tcurrent,tpos,tloss,
+     r        distgam,distx,disty,distpx,distpy,distt,
+     r        tradpos,tzrayl,tzwaist,tprad0,tradphase,
+     i        ndata,nsep,nslp,ndist,nraddata
+c
+      dimension
+     +        tgam0(nsmax),tdgam(nsmax),temitx(nsmax),temity(nsmax),
+     +        txrms(nsmax),tyrms(nsmax),txpos(nsmax),typos(nsmax), 
+     +        tpxpos(nsmax),tpypos(nsmax),tpos(nsmax),tloss(nsmax), 
+     +        talphx(nsmax),talphy(nsmax),tcurrent(nsmax),
+     +        tradpos(nsmax),tzrayl(nsmax),tzwaist(nsmax),
+     +        tprad0(nsmax),tradphase(nsmax),
+     +        distgam(ndmax),distt(ndmax),
+     +        distx(ndmax),disty(ndmax),distpx(ndmax),distpy(ndmax)
+c

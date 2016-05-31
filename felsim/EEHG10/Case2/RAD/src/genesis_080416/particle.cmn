@@ -1,0 +1,21 @@
+c     ------------------------------------------------------------------
+c     electron beam
+c
+      real*8  xpart,ypart,px,py,gamma,theta,xporb,yporb,
+     +        btpar,btper,ez,wx,wy,xcuren,dedz,
+     +        tdmin,tdmax,delcharge,dtd,charge
+      integer lost,lostid,losttot,ipos
+c
+      common /beamcom/
+     r        xpart,ypart,px,py,gamma,theta,xporb,yporb,
+     r        btpar,btper,ez,wx,wy,xcuren,dedz,
+     r        tdmin,tdmax,delcharge,dtd,charge,
+     i        lostid,lost,losttot,ipos
+c
+      dimension
+     r        xpart(npmax),ypart(npmax),px(npmax),py(npmax),
+     r        gamma(npmax),theta(npmax),xporb(npmax),
+     r        yporb(npmax),btpar(npmax),btper(npmax),
+     r        ez(npmax),wx(npmax),wy(npmax),
+     i        ipos(4,npmax),lostid(npmax)
+c

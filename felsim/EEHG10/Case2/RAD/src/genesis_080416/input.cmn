@@ -1,0 +1,84 @@
+c
+c     ------------------------------------------------------
+c     all input variables
+c
+c     wiggler        
+      real*8    aw0,xkx,xky,wcoefz,xlamd,fbess0,delaw,awd,awx,awy
+      integer   iseed,nwig,nsec,iertyp,iwityp
+c     electron beam
+      real*8    gamma0,delgam,rxbeam,rybeam,alphax,alphay,emitx
+      real*8    emity,xbeam,ybeam,pxbeam,pybeam,cuttail,curpeak
+      real*8    conditx,condity,bunch,bunchphase,emod,emodphase
+      integer   npart
+c     radiation
+      real*8    xlamds,prad0,zrayl,zwaist,pradh0
+c     grid-quantities
+      real*8    rmax0,dgrid,rmax0sc    
+      integer   ncar,lbc,nscr,nscz,nptr,iscrkup
+c     control
+      real*8    zsep,delz,zstop,version
+      integer   iorb
+c     strong focusing
+      real*8    quadf,quadd,fl,dl,drl,f1st,qfdx,qfdy,sl,solen
+c     loading 
+      integer   ildgam,ildpsi,ildx,ildy,ildpx,ildpy,itgaus,nbins
+      integer   igamgaus,inverfc
+c     output
+      integer   iphsty,ishsty,ippart,ispart,ipradi,isradi
+      integer   iotail,nharm,iallharm,iharmsc,magin,magout,lout
+      integer   idmpfld,idmppar,idump,ilog,ffspec	
+c     external files
+      character*30  beamfile,fieldfile,maginfile,magoutfile
+      character*30  outputfile,inputfile,partfile,distfile
+      character*30  filetype,radfile 	   
+c     time-dependency
+      real*8    curlen,shotnoise
+      integer   ntail,nslice,iall,itdp,ipseed,ndcut,isntyp
+c     scan
+      integer   iscan,nscan
+      real*8    svar
+      character*30  scan  
+c     extension
+      integer   isravg,isrsig,convharm,alignradf,offsetradf
+      integer   multconv
+      real*8    eloss,ibfield,imagl,idril,igamref
+c     transfermatrix 
+      integer trama  
+      real*8 itram11,itram12,itram13,itram14,itram15,itram16
+      real*8 itram21,itram22,itram23,itram24,itram25,itram26
+      real*8 itram31,itram32,itram33,itram34,itram35,itram36
+      real*8 itram41,itram42,itram43,itram44,itram45,itram46
+      real*8 itram51,itram52,itram53,itram54,itram55,itram56
+      real*8 itram61,itram62,itram63,itram64,itram65,itram66
+     
+      common /inputcom/
+     r aw0,xkx,xky,wcoefz,xlamd,fbess0,delaw,awd,awx,awy,
+     r gamma0,delgam,rxbeam,rybeam,alphax,alphay,emitx,
+     r emity,xbeam,ybeam,pxbeam,pybeam,cuttail,curpeak,
+     r conditx,condity,bunch,bunchphase,emod,emodphase,
+     r xlamds,prad0,zrayl,zwaist,rmax0,zsep,delz,zstop,
+     r quadf,quadd,fl,dl,drl,f1st,qfdx,qfdy,sl,solen,
+     r curlen,shotnoise,svar,dgrid,eloss,version,
+     r ibfield,imagl,idril,igamref,pradh0,
+     r itram11,itram12,itram13,
+     r itram14,itram15,itram16,itram21,itram22,itram23,
+     r itram24,itram25,itram26,itram31,itram32,itram33,
+     r itram34,itram35,itram36,itram41,itram42,itram43,
+     r itram44,itram45,itram46,itram51,itram52,itram53,
+     r itram54,itram55,itram56,itram61,itram62,itram63,
+     r itram64,itram65,itram66,rmax0sc,
+     i iseed,nwig,nsec,npart,ncar,lbc,nscr,nscz,nptr,
+     i ildgam,ildpsi,ildx,ildy,ildpx,ildpy,itgaus,nbins,
+     i iphsty,ishsty,ippart,ispart,ipradi,isradi,iertyp,iwityp,
+     i idump,iotail,nharm,iallharm,iharmsc,magin,magout,lout,
+     i ffspec,ntail,nslice,iall,itdp,ipseed,iscan,nscan,isntyp,
+     i isravg,isrsig,iorb,ndcut,idmppar,idmpfld,ilog, igamgaus,
+     i convharm,alignradf,offsetradf,multconv,trama,
+     i iscrkup,inverfc,
+     c beamfile,fieldfile,maginfile,magoutfile,outputfile,
+     c inputfile,scan,distfile,partfile,filetype,radfile  
+  
+       dimension wcoefz(3)  
+       dimension lout(40)  
+c
+c

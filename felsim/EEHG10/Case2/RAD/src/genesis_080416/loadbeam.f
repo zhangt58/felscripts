@@ -1,0 +1,621 @@
+      subroutine loadbeam(islice,xkper0)
+c     ===================================================================
+c     this routine fills the phase space for one slice of phase space
+c     ------------------------------------------------------------------
+c
+      include 'genesis.def'
+      include 'input.cmn'
+      include 'particle.cmn'
+      include 'io.cmn'
+c
+      real*8 enum,snoise,sn1,sn2,ratio,xkper0
+      integer i,ip,mpart,islice
+c
+c     initialize particle loss
+c
+      lost=0
+      do i=1,npart
+         lostid(i)=0
+      enddo
+c
+      if (iall.ne.0) then
+        ildpsi=-abs(ildpsi)   ! reinitialize all hammersley sequences
+      end if         
+c
+c     fill phase
+c
+      mpart=npart/nbins               !particles per bin
+c
+      do ip=1,mpart
+        theta(ip)=hammv(ildpsi)*2.*pi/dble(nbins)-pi  !load in first bin
+      end do 
+c
+c     branches for different loading methods
+c
+      if (npin.gt.0) then
+         i=readpart(islice)            !if reading from file
+         if ((convharm.gt.1).and.(multconv.ne.0)) then
+            call shotnoise_fawley
+         endif
+         return                        !skip the rest (loading is done)
+      endif
+c
+c     btpar is calculated in readpart
+c      
+      if (ndis.gt.0) then
+           call loaddist(mpart,islice)   !load from distribution file
+      else   
+           call loadquiet(mpart)         !internal load (quiet start)
+      endif   
+c
+c     normalized transverse position
+c 
+      do ip=1,mpart
+           xpart(ip)=xpart(ip)*xkper0
+           ypart(ip)=ypart(ip)*xkper0
+      end do 
+c
+c     mirror particle in remaining bins
+c         
+      do i=1,nbins-1
+         do ip=1,mpart
+          xpart(ip+i*mpart)=xpart(ip)
+          ypart(ip+i*mpart)=ypart(ip)
+          px(ip+i*mpart)=px(ip)
+          py(ip+i*mpart)=py(ip)
+          gamma(ip+i*mpart)=gamma(ip)
+          theta(ip+i*mpart)=theta(ip)+2.*dble(i)*pi/dble(nbins)
+          lostid(ip+i*mpart)=lostid(ip)
+         end do 
+      end do   
+c
+c     add shotnoise 
+c
+      if (xcuren .lt.0.d0) then
+             i=printerr(errload,'xcuren <=0 in loadbeam')
+             xcuren=0
+      else
+          if (isntyp.eq.0) then
+             call shotnoise_fawley
+          else   
+            call shotnoise_penman
+          endif  
+      endif   
+c
+c     add longitudinal correlations (energy modulation, prebunching)
+c
+      if ((bunch.ne.0.).or.(emod.ne.0.)) then
+         do ip=1,npart
+            gamma(ip)=gamma(ip)-emod*sin(theta(ip)-emodphase)
+            theta(ip)=theta(ip)-2.*bunch*sin(theta(ip)-bunchphase)
+c              bunching is J_1(2.*bunch), approximately = bunch
+         end do
+      end if
+c      
+c     calculate init. parallel velocity (needed in first call of track)
+c
+      do ip=1,npart      
+	    btpar(ip)=dsqrt(1.d0-(px(ip)**2+py(ip)**2+1.)/gamma(ip)**2)     !parallel velocity
+      enddo
+c
+      return
+      end     !loadbeam
+c
+c
+c
+      subroutine shotnoise_fawley
+c     ==================================================================
+c     shotnoise algortihm following fawley
+c     ------------------------------------------------------------------
+c
+      include 'genesis.def'
+      include 'input.cmn'
+      include 'particle.cmn'
+      include 'work.cmn'
+c
+      real*8 enum,snoise,sn1,sn2,ratio,xkper0,phin,an
+      real*8 ecorr
+      integer i,ip,mpart,islice,j,jj,iharm
+c
+
+      if (shotnoise.lt.tiny) return
+c      
+      mpart=npart/nbins
+      enum=xcuren*xlamds*zsep/ce/float(mpart)       !#electron in slice per beamlet
+      if (enum.lt.10) enum = 10    ! catch low current error
+
+        do ip=1,npart
+           p1(ip)=0.
+        enddo   
+c       
+        do iharm=1,(nbins-1)/2
+c
+c       adjust shotnoise for imported distribution
+c
+          ecorr=1.
+          if ((convharm.gt.1).and.(iharm*convharm.le.nharm)) then
+            ecorr=(float(convharm*convharm)-1.)/float(convharm*convharm)
+          endif
+
+          do i=1,mpart
+           phin=2.*pi*ran1(ipseed)
+           an=sqrt(-log(ran1(ipseed))*ecorr/enum)*2./float(iharm)
+           do j=1,nbins
+              jj=(j-1)*mpart+i
+               p1(jj)=p1(jj)-an*sin(float(iharm)*theta(jj)+phin)  
+            enddo
+          enddo 
+        enddo
+c        
+        do ip=1,npart
+           theta(ip)=theta(ip)+p1(ip)*shotnoise
+        enddo      
+c                    
+      return
+      end ! of shotnoise_fawley 
+c
+      subroutine shotnoise_penman
+c     ==================================================================
+c     shotnoise algorithm following Penman
+c     ------------------------------------------------------------------
+c
+      include 'genesis.def'
+      include 'input.cmn'
+      include 'particle.cmn'
+c
+      real*8 enum,snoise,sn1,sn2,ratio,xkper0
+      integer i,ip,mpart,islice
+c
+      if (shotnoise.lt.tiny) return
+c
+      enum=xcuren*xlamds*zsep/ce                           !#electron in slice
+      if (enum.lt.10) enum = 10            !catch low current error
+      ratio=float(npart)/enum
+      snoise=sqrt(3.d0*float(npart)/enum) !shot noise parameter     
+c
+c     for npart ~ enum the approximation is not precise enough
+c      
+      if (ratio.gt.0.02) then
+         sn1=snoise
+         sn2=pi*0.5
+ 1       snoise=(sn1+sn2)*0.5
+         ratio=sin(snoise)**2/snoise/snoise-1.+float(npart)/enum
+         if (ratio.lt.0) then
+            sn2=snoise
+         else
+            sn1=snoise
+         endif
+         if ((sn2-sn1).gt.0.002) goto 1 
+      endif
+c
+        do ip=1,npart
+          theta(ip)=theta(ip)+snoise*(1.d0-2.d0*ran1(ipseed))
+        end do
+c
+      return 
+      end ! of shotnoise_penman
+c             
+      subroutine loadquiet(mpart)
+c     ==================================================================
+c     do quiet loading of transverse phase space
+c     -------------------------------------------------------------------
+c
+      include 'genesis.def'
+      include 'particle.cmn'
+      include 'input.cmn'
+c
+      integer mpart,ip
+      real*8  xy,x,xx,y,yy,fac,xd,yd,pxd,pyd,xpd,ypd
+      real*8  betaxinv,betayinv,r2p,r2
+      real*8  ampl_x,ampl_y,dierfc      
+c
+c     fill energy with standard diviation 1
+c
+      if (igamgaus.ne.0) then
+        if (inverfc.eq.0) then
+          do ip=1,mpart
+             gamma(ip)=gasham(ildgam)     ! gauss distribution
+          end do
+        else
+          do ip=1,mpart
+             gamma(ip)=dierfc(hammv(ildgam)*2.)
+          end do
+        endif
+      else
+        do ip=1,mpart
+           gamma(ip)=hammv(ildgam)*2.0d0-1.0d0 ! uniform distribution
+        end do      
+      endif
+c
+      mpart=mpart/2     !only half particles per one bin, others symmetric!
+c
+c     fill x,y,px,py parabolic between [-1,1]
+c
+      ip=0
+ 10   continue
+      ip=ip+1
+ 20   continue
+      xpart(ip) = hammv(ildx )*2.0d0-1.0d0
+      ypart(ip) = hammv(ildy )*2.0d0-1.0d0
+      px(ip)    = hammv(ildpx)*2.0d0-1.0d0
+      py(ip)    = hammv(ildpy)*2.0d0-1.0d0
+
+cigor correction on 13.03.08 (11 is an improved Gaussian)
+csven note: the new Gaussian quiet start algorithm is now enabled
+c     with the new input parameter: inverfc <>0
+
+      if (inverfc.eq.0) then
+       r2 = xpart(ip)**2+ ypart(ip)**2
+       if(r2.ge.1.)goto 20
+       r2p=px(ip)**2+py(ip)**2+r2
+       if(r2p.ge.1.)goto 20
+       if(ip.lt.mpart)goto 10
+      end if
+       
+      if(ip.lt.mpart)goto 10
+c
+c     enforce profile
+c     
+      if (inverfc.eq.0) then
+        do ip=1,mpart                              
+          r2=xpart(ip)**2+ypart(ip)**2+px(ip)**2+py(ip)**2
+          if(r2.gt.tiny) then
+            fac=1.0d0                                       !parabolic as default
+            if(itgaus.eq.1)fac=dsqrt(-1.d0*dlog(1.d0-r2)/r2) !gaussian
+            if(itgaus.eq.2)fac=1.d0/dsqrt(r2)                !step
+            xpart(ip)=xpart(ip)*fac
+            ypart(ip)=ypart(ip)*fac
+            px(ip)=px(ip)*fac
+            py(ip)=py(ip)*fac
+          end if
+        end do
+      else !gaussian
+	 do ip=1,mpart   
+	    xpart(ip)=dierfc(1.0-xpart(ip))
+            ypart(ip)=dierfc(1.0-ypart(ip))
+            px(ip)=dierfc(1.0-px(ip))
+            py(ip)=dierfc(1.0-py(ip))
+          end do
+      end if
+cigor end of the correction on 13.03.08 (11 is an improved Gaussian)
+cigor  old version 
+c      r2 = xpart(ip)**2+ ypart(ip)**2
+c      if(r2.ge.1.)goto 20
+c      r2p=px(ip)**2+py(ip)**2+r2
+c      if(r2p.ge.1.)goto 20
+c      if(ip.lt.mpart)goto 10
+c
+c     enforce profile
+c
+c       do ip=1,mpart                              
+c         r2=xpart(ip)**2+ypart(ip)**2+px(ip)**2+py(ip)**2
+c         if(r2.gt.tiny) then
+c            fac=1.0d0                                        !parabolic as default
+c            if(itgaus.eq.1)fac=dsqrt(-1.d0*dlog(1.d0-r2)/r2) !gaussian
+c            if(itgaus.eq.2)fac=1.d0/dsqrt(r2)                !step
+c            xpart(ip)=xpart(ip)*fac
+c            ypart(ip)=ypart(ip)*fac
+c            px(ip)=px(ip)*fac
+c            py(ip)=py(ip)*fac
+c         end if
+c      end do
+cigor  end of the old version 
+
+c     correct phasespace loading 
+c
+      do ip=1,mpart                         !<x>=<y>=0 locally
+         xpart(ip+mpart)=-xpart(ip)
+         ypart(ip+mpart)=-ypart(ip)
+         px(ip+mpart)=-px(ip)
+         py(ip+mpart)=-py(ip)
+      end do
+c
+      mpart=mpart*2
+c
+c     remove any correlation between x,px and y,py
+c
+      call compmom(mpart,x,xx,y,yy,xy,xpart,px)       
+      xd=(xy-x*y)/(xx-x*x)
+      call compmom(mpart,x,xx,y,yy,xy,ypart,py)       
+      yd=(xy-x*y)/(xx-x*x)
+      do ip=1,mpart
+        px(ip)=px(ip)-xd*xpart(ip)
+        py(ip)=py(ip)-yd*ypart(ip)
+      enddo      
+c
+c     normalize distritution -> rms value is 1.
+c
+      call compmom(mpart,x,xx,y,yy,xy,xpart,ypart)  !compute moments
+      xd=1./dsqrt(xx)
+      yd=1./dsqrt(yy)
+      do ip=1,mpart
+         xpart(ip)=xpart(ip)*xd
+         ypart(ip)=ypart(ip)*yd
+      enddo
+c
+      call compmom(mpart,x,xx,y,yy,xy,px,py)  !compute moments
+      xd=1./dsqrt(xx)
+      yd=1./dsqrt(yy)
+      do ip=1,mpart
+         px(ip)=px(ip)*xd
+         py(ip)=py(ip)*yd
+      enddo
+c
+      call cut_tail(mpart)
+c
+      call compmom(mpart,x,xx,y,yy,xy,gamma,theta)  !compute moments
+      xx=xx-x*x
+      xd=1./dsqrt(xx)
+      if (igamgaus.eq.0) xd=xd/sqrt(3.)
+      do ip=1,mpart
+         gamma(ip)=(gamma(ip)-x)*xd
+      enddo
+c
+c     scale and shift distribution
+c
+      ip=0
+      if (rxbeam.le.0) ip=printerr(errload,'rxbeam in loadquiet')
+      if (rybeam.le.0) ip=printerr(errload,'rybeam in loadquiet')
+      if (gamma0.le.1) ip=printerr(errload,'gamma0 in loadquiet')
+      if (ip.lt.0) then
+          call last
+      endif    
+c
+      betaxinv=emitx/rxbeam**2                !calculation of 1/betax => !sr
+      betayinv=emity/rybeam**2                !no sigularity for emit=0  !sr
+      pxd=rxbeam*betaxinv                         !rms px at x=0
+      pyd=rybeam*betayinv                         !rms py at y=0
+      xpd=-alphax*betaxinv                    !slope of phase space ellipse
+      ypd=-alphay*betayinv
+      do ip=1,mpart
+c        define amplitudes, simplest before tilt and rescale is applied
+         ampl_x = 0.5*emitx*(px(ip)**2+xpart(ip)**2)
+         ampl_y = 0.5*emity*(py(ip)**2+ypart(ip)**2)
+         px(ip)=xpd*rxbeam*xpart(ip)+px(ip)*pxd   !scale+shift px
+	     py(ip)=ypd*rybeam*ypart(ip)+py(ip)*pyd   !scale+shift py
+	     xpart(ip)=xpart(ip)*rxbeam               !scale x to right size
+	     ypart(ip)=ypart(ip)*rybeam               !scale y to right size
+         gamma(ip)=gamma0+delgam*gamma(ip)
+         gamma(ip)=gamma(ip)+conditx*ampl_x+condity*ampl_y
+      end do
+c
+c     shift center in phase space
+c
+      do ip=1,mpart
+         xpart(ip)=(xpart(ip)+xbeam)
+         ypart(ip)=(ypart(ip)+ybeam)
+         px(ip)=(px(ip)+pxbeam)
+         py(ip)=(py(ip)+pybeam)
+      end do
+ 
+      return
+      end
+c
+c
+      subroutine loaddist(mpart,islice)
+c     =================================================================
+c     load slice from distribution
+c     -----------------------------------------------------------------
+c
+      include 'genesis.def'
+      include 'input.cmn'
+      include 'particle.cmn'
+c
+      integer mpart,mget,n1,n2,i,islice
+      real*8 t0,t1,xa,xs,ya,ys,pxa,pxs,pya,pys,ga,gs
+      real*8 tmp1,tmp2,tmp3
+c
+      t0=tdmax-(ntail+islice-1)*zsep*xlamds/3.d8-0.5*dtd !note sign for t -> z conversion
+      t1=t0+dtd
+      call readslice(mget,xpart,px,ypart,py,gamma,t0,t1)
+      xcuren=delcharge*dble(mget)/dtd    
+c
+      if (mget.lt.5) then
+         do i=mget+1,mpart
+            xpart(i)=0.d0
+            ypart(i)=0.
+            px(i)=0.
+            py(i)=0.
+            gamma(i)=gamma0
+         enddo
+         return
+      endif   
+c      
+c     adjust and normalize distirbution    
+c 
+      call compmom(mget,xa,xs,pxa,pxs,tmp3,xpart,px)
+      call compmom(mget,ya,ys,pya,pys,tmp3,ypart,py)
+      call compmom(mget,ga,gs,tmp1,tmp2,tmp3,gamma,xpart)
+c
+c     the absolute function should be redundent but sometime a round off
+c     error can cause a negative number. the error was pointed out by Gregg Penn 
+c
+      xs =dsqrt(dabs(xs-xa*xa))      
+      pxs=dsqrt(dabs(pxs-pxa*pxa))
+      ys =dsqrt(dabs(ys-ya*ya))
+      pys=dsqrt(dabs(pys-pya*pya))
+      gs =dsqrt(dabs(gs-ga*ga))
+      if (xs .lt.tiny) xs =1.d0
+      if (pxs.lt.tiny) pxs=1.d0
+      if (ys .lt.tiny) ys =1.d0
+      if (pys.lt.tiny) pys=1.d0
+      if (gs .lt.tiny) gs =1.d0
+      call scaledist(xpart,mget,-xa ,1.d0/xs )
+      call scaledist(px   ,mget,-pxa,1.d0/pxs)
+      call scaledist(ypart,mget,-ya ,1.d0/ys )
+      call scaledist(py   ,mget,-pya,1.d0/pys)
+      call scaledist(gamma,mget,-ga,1.d0/gs)
+c
+c     massage proto-distribution
+c
+      if (mget.ge.mpart) then
+c
+c         remove particles         
+c 
+         do i=mpart,mget-1
+            n1=int(mget*ran1(iseed))+1
+            call switch(xpart,px,ypart,py,gamma,n1,mget)
+            mget=mget-1
+         enddo   
+      else
+c
+c        add particle
+c
+   1     n1=int(dble(mget)*ran1(iseed))+1
+         call neighbor(xpart,px,ypart,py,gamma,n1,n2,mget,iseed)
+         xpart(mget+1) =xpart(n1) +(xpart(n2) -xpart(n1) )
+     +              *(0.5*(ran1(iseed)+ran1(iseed)))
+         px(mget+1)=px(n1)+(px(n2)-px(n1))
+     +              *(0.5*(ran1(iseed)+ran1(iseed)))
+         ypart(mget+1) =ypart(n1) +(ypart(n2) -ypart(n1) )
+     +              *(0.5*(ran1(iseed)+ran1(iseed)))
+         py(mget+1)=py(n1)+(py(n2)-py(n1))
+     +              *(0.5*(ran1(iseed)+ran1(iseed)))
+         gamma(mget+1) =gamma(n1)+(gamma(n2) -gamma(n1))
+     +              *(0.5*(ran1(iseed)+ran1(iseed)))
+         mget=mget+1
+         if (mget.lt.mpart) goto 1
+      endif
+c
+c     scale back
+c
+      call scaledist(xpart,mpart,xa/xs,xs)
+      call scaledist(px   ,mpart,pxa/pxs,pxs)
+      call scaledist(ypart,mpart,ya/ys,ys)
+      call scaledist(py   ,mpart,pya/pys,pys)
+      call scaledist(gamma,mpart,ga/gs,gs)
+c
+      return
+      end
+c
+c
+      subroutine compmom(n,x,x2,y,y2,xy,xa,ya)
+c     ==================================================================
+c     compute moments
+c     ------------------------------------------------------------------
+c
+      integer n,i
+      real*8 xa,ya,x,x2,y,y2,xy,dd
+      dimension xa(*),ya(*)                   !>=n
+c
+      x =0.0d0
+      x2=0.0d0
+      y =0.0d0
+      y2=0.0d0
+      xy=0.0d0
+      do i=1,n
+         x =x +xa(i)
+         y =y +ya(i)
+         x2=x2+xa(i)*xa(i)
+         y2=y2+ya(i)*ya(i)
+         xy=xy+xa(i)*ya(i)
+      end do
+      dd=1.d0/dble(n)							! enforce double precission
+      x = x*dd
+      y = y*dd
+      x2=x2*dd
+      y2=y2*dd
+      xy=xy*dd
+c
+      return
+      end     !compmom
+c
+c
+      subroutine switch(x,px,y,py,g,n1,n2)
+c     =================================================================
+c     switch two particles
+c     -----------------------------------------------------------------
+c
+      integer n1,n2
+      real*8 x(*),px(*),y(*),py(*),g(*),tmp
+c
+      tmp=x(n1)
+      x(n1)=x(n2)
+      x(n2)=tmp
+      tmp=px(n1)
+      px(n1)=px(n2)
+      px(n2)=tmp
+      tmp=y(n1)
+      y(n1)=y(n2)
+      y(n2)=tmp
+      tmp=py(n1)
+      py(n1)=py(n2)
+      py(n2)=tmp
+      tmp=g(n1)
+      g(n1)=g(n2)
+      g(n2)=tmp
+      return
+      end
+
+      subroutine scaledist(x,n,a,b)
+c     ==============================================
+c     scales distribution to x -> b*(x+a)
+c     ----------------------------------------------
+c
+      real*8 x(*),a,b
+      integer i,n
+c
+      do i=1,n
+         x(i)=b*(x(i)+a)
+      enddo
+      return
+      end
+c
+      subroutine neighbor(x,px,y,py,g,n1,n2,n,iseed)
+c     =================================================================
+c     search for particle n2 closest to n1
+c     -----------------------------------------------------------------
+c
+      integer n1,n2,n,i,iseed
+      real*8 ran1
+      real*8 x(*),px(*),y(*),py(*),g(*),r,rmin
+c
+      rmin=-1.
+      n2=0
+      do i=1,n
+         r=  (x(n1)-x(i))**2*ran1(iseed)+(px(n1)-px(i))**2*ran1(iseed)
+         r=r+(y(n1)-y(i))**2*ran1(iseed)+(py(n1)-py(i))**2*ran1(iseed)
+         r=r+(g(n1)-g(i))**2*ran1(iseed)
+         if (i.ne.n1) then
+            if ((rmin.lt.0).or.(r.lt.rmin)) then 
+                 n2=i
+                 rmin=r
+            endif  
+         endif
+      enddo
+      if (n2.eq.0) then
+         n2=n1    ! copy himself if only one particle is present
+      endif   
+      return
+      end
+c
+
+      subroutine cut_tail(mp)
+c     =======================================================
+c     collimation of the transverse tails
+c     ----------------------------------------------------------
+c
+      include 'genesis.def'
+      include 'particle.cmn'
+      include 'input.cmn'
+c
+      integer i,mp
+      real*8 r
+c
+      if (cuttail.le.0) return      
+c
+      do i=1,mp
+         r=xpart(i)**2+px(i)**2       
+         if (r.gt.cuttail) then
+             lost=1
+             lostid(i)=1
+         endif
+         r=ypart(i)**2+py(i)**2       
+         if (r.gt.cuttail) then
+             lost=1
+             lostid(i)=1
+         endif
+      enddo
+c
+      return
+      end

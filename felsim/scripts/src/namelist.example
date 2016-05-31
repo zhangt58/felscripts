@@ -1,0 +1,43 @@
+#seedlaser
+
+seed_wavelength = 1047.0e-9 #seed laser's wavelength, [meter]
+seed_power 		= 1.0e9 	#seed laser's peak power, [W]
+seed_tau 		= 1e-12 	#seed laser's pulse width in FWHM, [sec]
+seed_omega0 	= 0.3e-3 	#seed laser's waist size, [meter]
+seed_ceo 		= 45 		#seed laser's carrier-envelop-offset, [deg]
+seed_offset  	= 0 		#[seed_wavelength]
+
+#element switch
+#use_element 	= "dipole"
+use_element 	= "undulator"
+print_list 		= 1
+#:1 print namelist
+
+#scan control
+scan_flag 		= 0 	 	#1:enable scanning, 0: disable
+scan_echo 		= 1 		#1:print scanning information to stdout, 0:disable
+scan_param 		= "dipole_field"
+scan_begin 		= 0.002
+scan_step 		= 0.002
+scan_end 		= 0.500
+
+#dipole
+dipole_nstep 	= 100 		
+dipole_length 	= 0.05 		#[meter]
+dipole_field 	= 0.16 		#[tesla]
+dipole_type 	= 0 		#dipole_type=0: full, 1: half
+
+#undulator
+undulator_period = 0.05 	#[meter]
+undulator_field  = 0.425 	#[tesla]
+undulator_num    = 2 		
+undulator_nstep  = 200
+
+#inputfile
+infilename 		= "../datafiles/100k_1um"
+npart  			= 100000
+
+#outputfile
+#outfilename 	= "./scan/scan_dipole0_field"
+#outfilename 	= "./scan/scan_undulator_seedwavelength"
+outfilename 	= "100kmod"

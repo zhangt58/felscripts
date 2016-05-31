@@ -1,0 +1,142 @@
+!! SDUV-FEL chicane setup
+
+!! Chicane-I for simulating CSR effect
+! total charge
+q: charge,total=100.0e-12
+! B_angle   : deg
+! B_angle_p : rad
+! B_angle_n : rad
+! ArcLength : m
+! Ldrift    : m
+
+% 4.012			sto 	B_angle1
+% 0.2149		sto 	ArcLength1 
+
+% B_angle1  180 / pi * 	sto 	B_angle1_p
+% B_angle1 -180 / pi *  sto 	B_angle1_n
+
+% 0.7012 				sto  	Ldrift11
+% 0.0 					sto 	Ldrift12
+% Ldrift11 B_angle1_p cos /		sto 	Ldrif11
+% Ldrift12 				sto 	Ldrif12
+
+% 5.86			sto 	B_angle2
+% 0.1502 				sto 	ArcLength2 
+
+% B_angle2  180 / pi * 	sto 	B_angle2_p
+% B_angle2 -180 / pi *  sto 	B_angle2_n
+
+% 0.10 					sto  	Ldrift21
+% 0.0 					sto 	Ldrift22
+% Ldrift21 B_angle2_p cos /		sto 	Ldrif21
+% Ldrift22 				sto 	Ldrif22
+
+% 0 			sto 	withCSR 
+% 0 			sto 	withISR 
+% 600 	  sto 	binNo 
+% 1 			sto 	kickNo 
+ 
+!CSRBEND 
+!======= 
+
+! the first chicane (BC11-BC14)
+BC11  : CSRCSBEN,L="ArcLength1", & 
+        ANGLE="B_angle1_p", & 
+        EDGE1_EFFECTS=1,E1= 0.0, & 
+        EDGE2_EFFECTS=1,E2="B_angle1_p", & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC11.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+BC12  : CSRCSBEN,L="ArcLength1", & 
+        ANGLE="B_angle1_n", & 
+        EDGE1_EFFECTS=1,E1="B_angle1_n", & 
+        EDGE2_EFFECTS=1,E2= 0.0, & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC12.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+BC13  : CSRCSBEN,L="ArcLength1", & 
+        ANGLE="B_angle1_n", & 
+        EDGE1_EFFECTS=1,E1= 0.0, & 
+        EDGE2_EFFECTS=1,E2="B_angle1_n", & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC13.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+BC14  : CSRCSBEN,L="ArcLength1", & 
+        ANGLE="B_angle1_p", & 
+        EDGE1_EFFECTS=1,E1="B_angle1_p", & 
+        EDGE2_EFFECTS=1,E2= 0.0, & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC14.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+! the second chicane (BC21-BC24)
+BC21  : CSRCSBEN,L="ArcLength2", & 
+        ANGLE="B_angle2_p", & 
+        EDGE1_EFFECTS=1,E1= 0.0, & 
+        EDGE2_EFFECTS=1,E2="B_angle2_p", & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC21.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+BC22  : CSRCSBEN,L="ArcLength2", & 
+        ANGLE="B_angle2_n", & 
+        EDGE1_EFFECTS=1,E1="B_angle2_n", & 
+        EDGE2_EFFECTS=1,E2= 0.0, & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC22.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+BC23  : CSRCSBEN,L="ArcLength2", & 
+        ANGLE="B_angle2_n", & 
+        EDGE1_EFFECTS=1,E1= 0.0, & 
+        EDGE2_EFFECTS=1,E2="B_angle2_n", & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC23.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+BC24  : CSRCSBEN,L="ArcLength2", & 
+        ANGLE="B_angle2_p", & 
+        EDGE1_EFFECTS=1,E1="B_angle2_p", & 
+        EDGE2_EFFECTS=1,E2= 0.0, & 
+        HGAP=0.015, & 
+        nonlinear=1,n_kicks=10,integration_order=4, & 
+        bins="binNo",sg_halfwidth=1, & 
+        output_file="%s.BC24.csr",output_interval=10, & 
+        isr="withISR", csr="withCSR" 
+
+!CSR DRIFTS 
+!======= 
+! drift sections of chicane-I
+BD11  : CSRDRIF, L="Ldrif11", USE_STUPAKOV=1, N_kicks="kickNo"; 
+BD12  : CSRDRIF, L="Ldrif12", USE_STUPAKOV=1, N_kicks="kickNo"; 
+BD13  : CSRDRIF, L="Ldrif11", USE_STUPAKOV=1, N_kicks="kickNo";  
+
+! drift sections of chicane-II
+BD21  : CSRDRIF, L="Ldrif21", USE_STUPAKOV=1, N_kicks="kickNo"; 
+BD22  : CSRDRIF, L="Ldrif22", USE_STUPAKOV=1, N_kicks="kickNo"; 
+BD23  : CSRDRIF, L="Ldrif21", USE_STUPAKOV=1, N_kicks="kickNo";  
+
+! watch point
+w1    : watch, filename="ds1.out", mode=coord 
+w2    : watch, filename="ds2.out", mode=coord 
+
+!beamline
+Chi1  : line=(q, BC11, BD11, BC12, BD12, BC13, BD13, BC14, w1) 
+Chi2  : line=(q, BC21, BD21, BC22, BD22, BC23, BD23, BC24, w2) 

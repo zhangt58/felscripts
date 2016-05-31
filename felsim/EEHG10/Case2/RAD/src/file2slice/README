@@ -1,0 +1,14 @@
+This directory keeps the cpp source code of file2sliceD CLI command,
+which is written for splitting a single data file into a series of
+small files (slices) according to the first column of the datafile.
+
+The usage can be found by simply type file2sliceD on any terminal.
+
+Note:
+	1: to access the binary data by MATLAB/Octave
+		fid = fopen('filename','r');
+		a   = fread(fid, [npart, 6], 'double')
+	2: Jan. 28th, 2013
+	---> add option (somflag) for control the output format
+	---> somflag: single or multiple files, wheather split to 
+				  multiple files or just one single one.

@@ -1,0 +1,9 @@
+c     simulation control and normalisation parameter
+c
+      real*8  xkw0,xkper0,sval,svalout,gamma0_in
+      integer npart0,inorun	
+c
+      common /simcom/
+     r        xkw0,xkper0,sval,svalout,gamma0_in,
+     i        npart0,inorun	
+

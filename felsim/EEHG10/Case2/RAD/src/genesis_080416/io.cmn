@@ -1,0 +1,24 @@
+c     ------------------------------------------------------------------
+c     input/output control
+c
+      real*8  distversion,distrev
+
+      integer 
+     i        nout,nfld,npar,ndump,firstout,
+     i        nfin,irecpar,irecfld,kout,iout,
+     i        ndmp2,npin,ndis,nlog,ndistsize,
+     i        ncoldis,iconv2t,iconv2g,icolpar,
+     i        iconv2px,iconv2py,nprobe,ftype,
+     i        ftdist,ftpart,ftfield,ndumph,nfldh	
+c
+      common /iocom/
+     r        distversion,distrev,
+     i        iout,nout,nfld,npar,ndump,firstout,
+     i        nfin,irecpar,irecfld,kout,ndmp2,npin,
+     i        nlog,ndis,ncoldis,iconv2t,iconv2g,icolpar,
+     i        ndistsize,iconv2px,iconv2py,nprobe,ftype,
+     i        ftdist,ftpart,ftfield,ndumph,nfldh
+c
+      dimension iout(15+4*(nhmax-1)),icolpar(10)
+      dimension nfldh(nhmax-1),ndumph(nhmax-1)
+c

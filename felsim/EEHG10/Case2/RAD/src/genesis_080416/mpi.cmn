@@ -1,0 +1,14 @@
+      include 'mpif.h'
+
+c     ------------------------------------------------------------------
+c     common block for mpi implementation for genesis
+c
+      integer mpi_id,mpi_err,mpi_size,mpi_loop
+      integer nfldmpi,nparmpi,nfldhmpi
+c
+c
+      common /mpicom/
+     i         mpi_id, mpi_err,mpi_size,mpi_loop,
+     i         nfldmpi,nparmpi,nfldhmpi
+c
+      dimension nfldhmpi(nhmax-1)

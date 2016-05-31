@@ -1,0 +1,21 @@
+#Today is Wed May 25 14:35:17 CST 2011
+#
+#This file is a series of number separated by blanks, 
+#which describes the whole lattice of SASE.
+#
+#Format :!	n1	n2	n3	n4	n5	n6
+#meaning:	lo1 QF  lo2 lur	lo3 QD
+#lo1:   drift length before QF1, 					unit: radiator  period
+#QF :   1st quadruplole length,						unit: radiator  period
+#lo2:   drift length between QF1 and undulator,		unit: radiator  period
+#UR :   undulator length,							unit: radiator  period
+#lo3:   drift length between undulator and QF2,		unit: radiator  period
+#QD :   2nd quadruplole length,						unit: radiator  period
+#the full lattice will be: n1 n2 n3 n4 n5 n6 n7 n8 n9
+#i.e.                    : O1+QF+O2+UR+O3+QD+O4+UR+O5+...
+#On theory : one FODO will be: n2/2 (n3 n4 n5) n6 (n7 n8 n9) n10/2
+|----|  |----|  |----|  |----|  |----|  |----|
+|-O1-|->|-QF-|->|-O2-|->|-UR-|->|-O3-|->|-QD-|+... 
+|----|  |----|  |----|  |----|  |----|  |----|
+#write lattice number from modulator to radiator after '!' the next line.
+!3 4 3 60 3 4

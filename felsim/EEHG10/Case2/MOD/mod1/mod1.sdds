@@ -1,0 +1,10 @@
+SDDS1
+&description text="AfterM1 (M)", contents="output phase space", &end
+&column name=t,  symbol=t,  units=s, description="time", format_string=%.14e, type=double,  &end
+&column name=p,  symbol=p,  units="m$be$nc", description="momentum", format_string="%.14e", type=double,  &end
+&column name=x,  symbol=x,  units=m, description="horizontal position", format_string=%.14e, type=double,  &end
+&column name=y,  symbol=y,  units=m, description="vertical position",   format_string=%.14e, type=double,  &end
+&column name=xp, symbol=x', description="horizontal slop", format_string=%.14e, type=double,  &end
+&column name=yp, symbol=y', description="vertical slop",   format_string=%.14e, type=double,  &end
+&data mode=ascii, no_row_counts=1,  &end
+! page number 1

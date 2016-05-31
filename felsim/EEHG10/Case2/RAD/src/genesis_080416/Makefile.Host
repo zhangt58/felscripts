@@ -1,0 +1,164 @@
+############################################################################
+#
+# Time-stamp: <28 Mar 02 11:51:43 Rene Bakker>
+#
+# File:       Makefile.Unix
+# Project:    goemon
+#
+# Descr.:     Makefile for Genesis
+#
+# Author(s):  Rene Bakker
+#
+# $Revision: 1.4 $
+# $Date: 2002/02/26 17:52:12 $
+#
+# $Author: bakker $
+#
+# $Log: Makefile.Host,v $
+# Revision 1.4  2002/02/26 17:52:12  bakker
+# mpi version of genesis added
+#
+# Revision 1.3  2001/10/31 10:08:50  bakker
+# initial modificatoins for installation at BESSY
+#
+# Revision 1.2  2001/02/21 16:01:35  bakker
+# update for S.Reiche 06.2000
+#
+# Revision 1.2  1999/09/13 15:35:19  bakker
+# updated to compile for both hp700 (ACC) and linux gcc
+#
+# Revision 1.1  1999/09/02 14:11:04  bakker
+# Makefile.Host substitutes Makefile.Unix
+#
+# Revision 1.1.1.1  1999/09/01 17:36:06  bakker
+# Sources copied from ~mueller/goemon 
+#
+#
+# This software is copyrighted by the BERLINER SPEICHERRING 
+# GESELLSCHAFT FUER SYNCHROTRONSTRAHLUNG M.B.H., BERLIN, GERMANY. 
+# The following terms apply to all files associated with the 
+# software. 
+#
+# BESSY hereby grants permission to use, copy, and modify this 
+# software and its documentation for non-commercial educational or 
+# research purposes, provided that existing copyright notices are 
+# retained in all copies. 
+#
+# The receiver of the software provides BESSY with all enhancements, 
+# including complete translations, made by the receiver.
+#
+# IN NO EVENT SHALL BESSY BE LIABLE TO ANY PARTY FOR DIRECT, 
+# INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING 
+# OUT OF THE USE OF THIS SOFTWARE, ITS DOCUMENTATION, OR ANY 
+# DERIVATIVES THEREOF, EVEN IF BESSY HAS BEEN ADVISED OF THE 
+# POSSIBILITY OF SUCH DAMAGE. 
+#
+# BESSY SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT 
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR 
+# A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.  THIS SOFTWARE IS 
+# PROVIDED ON AN "AS IS" BASIS, AND BESSY HAS NO OBLIGATION TO 
+# PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR 
+# MODIFICATIONS. 
+#
+# Copyright (c) 1999 by Berliner Elektronenspeicherring-Gesellschaft
+#                            fuer Synchrotronstrahlung m.b.H.,
+#                                    Berlin, Germany
+#
+############################################################################
+
+TOP = ~meseck/models
+include $(TOP)/config/CONFIG_APP
+ACC = CC
+#----------------------------------------
+#  ADD MACRO DEFINITIONS AFTER THIS LINE
+
+
+# definition of common blocks
+#
+CMN_FILES = \
+	diagnostic.cmn 	input.cmn 	magnet.cmn 	sim.cmn 	timerec.cmn \
+	field.cmn 	io.cmn 	particle.cmn 	time.cmn 	work.cmn\
+	mpi.cmn   
+#hfield.cmn
+	
+DEP_FILES = $(patsubst %,../%,$(CMN_FILES))
+
+# common sources for all Genesis versions
+#
+SRC_COMMON = \
+	main.f   check.f   diagno.f   esource.f   field.f   incoherent.f \
+    math.f 	 partsim.f  pushp.f   loadbeam.f  loadrad.f  magfield.f \
+    tdepend.f  track.f  string.f  rpos.f  scan.f  source.f  stepz.f \
+    timerec.f initrun.f  input.f output.f mpi.f 
+
+# sources that are modified for the mpi-version of GENESIS
+# Syntax: mpi-$(original name).f 
+#
+SRC_MPI = input.f loadrad.f main.f output.f
+
+# For MPI verrsions on Aqua only !!!!!!
+#======================================
+ifeq ($(HOST),aqua)
+
+PROD = genesis mpi-genesis genmerge
+
+genesis_SRC      = $(SRC_COMMON) $(SRC_MPI)
+genesis_OBJS     = $(patsubst %.f,%.o,$(genesis_SRC))
+mpi-genesis_SRC  = $(SRC_COMMON) $(patsubst %,mpi-%,$(SRC_MPI))
+mpi-genesis_OBJS = $(patsubst %.f,%.mpi.o,$(mpi-genesis_SRC))
+genmerge_OBJS    = genmerge.o
+
+else
+
+PROD = genesis
+SRC  = $(SRC_COMMON) $(SRC_MPI)
+OBJS = $(patsubst %.f,%.o,$(SRC))
+
+endif
+
+ifeq ($(HOST_ARCH),Linux)
+FC=gfortran
+FFLAGS += -O -m486 -malign-double
+endif
+
+ifeq ($(HOST_ARCH),hp700)
+
+FC     = /opt/fortran90/bin/f90
+FFLAGS = +Oall
+LFLAGS = \
+	-L/opt/fortran90/lib \
+	-L/usr/lib
+
+ifeq ($(HOST),aqua)
+FC_MPI     = ../mpif90
+FFLAGS_MPI = +DA2.0W +O3 +Oaggressive +Odataprefetch -I/opt/mpi/include
+LFLAGS += \
+	-L/opt/fortran90/lib/pa20_64 \
+	-L/usr/lib/pa20_64
+endif
+
+endif
+
+include $(TOP)/config/RULES.Host
+#----------------------------------------
+#  ADD RULES AFTER THIS LINE
+
+%.o: ../%.f $(DEP_FILES)
+	$(FC) $(FFLAGS) -c $<
+
+ifeq ($(HOST),aqua)
+%.mpi.o: ../%.f $(DEP_FILES)
+	$(FC_MPI) $(FFLAGS_MPI) $(FFLAGS_MPI) -c -o $@ $<
+
+genesis: $(genesis_OBJS)  $(DEP_FILES)
+	$(FC) $(FFLAGS) $(LFLAGS) -o $@ $(genesis_OBJS)
+
+mpi-genesis: $(mpi-genesis_OBJS) $(DEP_FILES)
+	$(FC_MPI) $(FFLAGS_MPI) $(LFLAGS) -o $@ $(mpi-genesis_OBJS)
+
+else
+
+$(PROD): $(OBJS) $(DEP_FILES)
+	$(FC) $(FFLAGS) $(LFLAGS) -o $@ $(OBJS)
+
+endif

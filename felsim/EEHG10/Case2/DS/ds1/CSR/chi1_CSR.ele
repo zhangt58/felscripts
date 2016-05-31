@@ -1,0 +1,66 @@
+&run_setup
+        lattice       = "../../lat/SDUV_CSR.lte"
+        default_order = 2
+        use_beamline  = Chi1
+        p_central     = 322.896
+        sigma         = %s.sig
+        centroid      = %s.cen
+        output        = %s.out
+        final         = %s.fin
+        print_statistics  = 0
+		element_divisions = 0
+&end
+
+&run_control
+        n_steps = 1
+&end
+
+&twiss_output
+        filename = "%s.twi"
+        matched  = 0
+        output_at_each_step = 0
+        higher_order_chromaticity = 0
+        final_values_only = 0 
+        beta_x  = 5
+      	beta_y  = 5
+      	alpha_x = 0.13
+      	alpha_y = 0
+&end
+
+&matrix_output
+	printout  = "%s.mpr"
+	printout_order    = 2
+	full_matrix_only  = 1
+	SDDS_output_order = 1
+	output_at_each_step = 0
+	SDDS_output = %s.mat
+&end
+
+!&bunched_beam
+!        use_twiss_command_values = 1
+!        n_particles_per_bunch    = 200000
+!       	save_initial_coordinates = 0
+!        one_random_bunch = 0
+!        emit_nx  = 1.0e-6
+!        emit_ny  = 1.0e-6
+!        sigma_dp = 5.0e-5
+!        sigma_s  = 50.0E-06
+!        dp_s_coupling = 0.0
+!        distribution_type[0]   = 3*"gaussian"
+!        distribution_cutoff[0] = 3*3
+!        symmetrize = 0
+!        enforce_rms_values[0] = 1,1,1
+!        bunch = %s.bun
+!&end
+
+&sdds_beam
+        input = "../../../MOD/mod1/mod1c.sdds",
+        input_type  = "elegant",
+        sample_interval = 1,
+        p_lower = 0,
+        p_upper = 1e10,
+        reuse_bunch = 0
+&end
+
+&track
+&end

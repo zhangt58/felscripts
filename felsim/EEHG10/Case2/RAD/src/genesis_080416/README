@@ -1,0 +1,40 @@
+The latest release of Genesis supports parallel computer architecture,
+based on the Message Passing Interface (MPI) protocol. To avoid the maintance
+of two codes the genesis source code supports both, but the user has to do
+some minor modification before compiling.
+
+The distribution includes a sample Makefile which can be used to compile the code
+on any platform. The Makefile uses the GNU Fortran compiler as well as the
+MPICH compiler for mpi codes, but which is based on the GNU Fortran compiler as well.
+If a different compiler is used the compile instructions might be different, in particular
+the compiler and linker flags.
+
+----------------------------------
+
+Compiling as a single processor code:
+
+1) Make a copy of 'mpi.f.single' in the same directory and name it 'mpi.f'
+It mostly contains some empty wrapper function to mimick the call of MPI
+functions.
+
+2) Make a copy of 'mpif.h.single' in the same directory and name it 'mpif.h'.
+It contains some parameter definition which are not of importance for the single 
+processor version, but nevertheless required to use the same source code.
+
+3) Compile the source code
+
+-----------------------------------
+
+Compiling as a multi processor code:
+
+1) Make a copy of 'mpi.f.multi' in the same directory and name it 'mpi.f'.
+It contains all the routines to manage the parallel environment.
+
+2) Make sure that there is no file named 'mpif.h' in the directory. MPI compilers
+will supply their own version of this file, which is necessary to compile any MPI program.
+
+3) Compile the source code
+
+==========================================================
+
+Sven Reiche - UCLA 9/30/05

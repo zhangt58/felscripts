@@ -1,0 +1,20 @@
+todo:
+	1: add scan function 									--- 	DONE!
+	2: sdds compatible         							    ---   	
+	3: add undulator phase 									--- 	DONE!	
+	4: add trajx dump 										--- 	DONE!
+	4: add swithc to control trajx output or not 			--- 	DONE!
+	4: add the laser initial incident angle to dipole class --- 	
+	5: print out data formatting 							--- 	
+	6: make seed laser universally, TEM00, 10, 12, etc ... 	--- 	
+	7: add horizontal/vertical offset 						--- 	
+	8: make a more meaningful name 							--- 	DONE! 	
+	9: add laser noise, both power noise and phase noise 	--- 	
+		[X] add random number generation function 
+			(in readinput headfile)
+		[ ] random_dist class
+		[ ] add random relevant code in inputpanel,
+			power and phase noise setting (in seedlaser class)
+NOTE:
+	1: Jan. 24th, 2013
+	---> set zc = 0 

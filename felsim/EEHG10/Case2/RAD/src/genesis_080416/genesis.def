@@ -1,0 +1,56 @@
+      implicit none
+c
+      real*8 genver
+      character*4 platf
+c		 
+      real*8 eev,vacimp,ce,pi,pihalf,twopi,tiny,small
+      integer npmax,nzmax,ncmax,nsmax,nrgrid,nhmax,ndmax
+      integer original,f_sdds,keepdist
+c
+      parameter(
+     +          genver = 1.0,                !genesis version
+     +			platf  ='Unix',              !platform
+     +          original = 1 ,               !indicator for original filetype
+     +          f_sdds = 2 ,                 !indicator for sdds filetype
+     +          npmax  = 5000001,            !# of particles
+     +          nzmax  = 10000,              !# of integration steps
+     +          nsmax  = 50000,              !# of slices
+     +          nhmax  = 7,                  !maximum of harmonics
+     +          ndmax  = 9000001,           !maximum of particle in imported distribution
+     +          keepdist = 1,                !<> 0 keeps distribution in memory
+     +          eev    = 510999.06d0,        !energy units (mc^2) in ev
+     +          vacimp = 376.73d0,           !vacuum impedence in ohms
+     +          ce     = 4.803302d-11,       !speed of light * electron charge
+     +          pi     = 3.14159265358979d0, !pi
+     +          pihalf = pi/2.d0,            !pi/2
+     +          twopi  = 2.d0*pi,            !2*pi
+     +          tiny   = 1.d-25,             !check i for precission 
+     +          small  = 1.d-7,              !check ii for precission
+     +          nrgrid = 1000,               !number of radial points for s. c.
+     +          ncmax  = 261)                !# of gridpoints of cartesian mesh
+c
+c     error codes 
+c
+      integer noerr,erropen,errread,erropenin,errreadin,errscant,
+     +        errscanex,errbeamfile,errinput,errinwarn,errconv,
+     +        errarrbnd,errmagrnd,errextra,errscanm1,errscanm2,
+     +        errpartloss,errmagshort,errinvalname,errreadfld,
+     +        errlargeout,errrequest,errtime,errload,errgenwarn
+c
+      parameter(
+     +  noerr=0,erropen=-1,errread=-2,erropenin=-3,errreadin=-4,
+     +  errscant=-5,errscanex=-6,errbeamfile=-7,errinput=-8,
+     +  errinwarn=-9,errconv=-10,errarrbnd=-11,errmagrnd=-12,
+     +  errextra=-13,errscanm1=-14,errscanm2=-15,errpartloss=-16,
+     +  errmagshort=-17,errinvalname=-18,errreadfld=-19,
+     +  errlargeout=-20,errrequest=-21,errtime=-22,errload=-23,
+     +  errgenwarn=-24)
+c
+c     function prototypes
+c 
+      real*8 hammv,faw0,faw2,gasham,ran1,gasran,bessj0,bessj1,bessj
+      integer chk_bnd,chk_scan,readin,readfield,printerr
+      integer openoutputfile,opentextfile,openbinfile,luf
+      integer readdistfile,extractval,extractnumber,strlen
+      integer detectfiletype,readpart,openbininput
+

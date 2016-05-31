@@ -1,0 +1,15 @@
+? version = 1.0
+? unitlength = 0.025
+
+!loop = 6
+aw 0.000 10 0
+aw 0.957 60 0
+!endloop
+
+!loop = 3
+qf 0.0 03 0
+qf     +4.00000E+00     4   0
+qf 0.0 66 0
+qf     +1.00000E+00     4   0
+qf 0.0 63 0
+!endloop
