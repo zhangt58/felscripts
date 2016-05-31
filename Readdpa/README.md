@@ -1,14 +1,8 @@
-readdpa
-=============
+#### readdpa
 
-read dpafile dumped from GENESIS 1.3 and generate the required beam distribution for further simulations
+Read .dpa binary files (6D electron particle phase space distributions) dumped from GENESIS 1.3 and generate the required beam distribution for further simulations.
 
 Subprogram list:
 
----------------------------------------------------------------------
-|-No-|----Name----|-----------------description---------------------|
----------------------------------------------------------------------
-|-01-|   readdpa  | read dpafile from GENESIS, generate required    |
-|----|------------| beam distribution for further simulations 		|
-|-02-|readdpa_lite| lite version of readdpa 						|
-
+* <code>readdpa</code>: read .dpa file from GENESIS, generate required beam distribution for further simulations
+* <code>readdpa_lite</code>: lite version of <code>readdpa</code>
