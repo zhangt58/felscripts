@@ -1,6 +1,6 @@
-###Package name: <code>optGamma</code>
+###Package name: `optGamma`
 
-###Belongs to package: <code>optimizationSuite</code>
+###Belongs to package: `optimizationSuite`
 
 ####Information:
 
