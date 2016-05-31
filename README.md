@@ -18,6 +18,7 @@ Data post-processing and optimization scripts/programms for free-electron laser 
 * [seed_gen](/seed_gen): Bash Shell/Octave/Matlab, generate seed laser file for genesis 1.3 (radfile).
 * [spectralAnalysis](/spectralAnalysis): Bash Shell/Octave/Matlab, calculate spectral data file from TDP output file.
 * [beta match](/beta_match): Bash Shell/Octave/Matlab, twiss parameters matching for SASE, HGHG, EEHG, etc.
+* [felsim](/felsim): Bash Shell/Octave/Matlab/C/C++, general FEL simulation approach.
 
 #####Log:
 * 2014-01-24: upload to bitbucket
