@@ -8,7 +8,7 @@ Data post-processing and optimization scripts/programms for free-electron laser 
 
 #### contents:
 * [getdp](/getdp): C/C++, extract data block from time-dependent output files, according to the slice order or z order, regarding to options. 
-* [phaseshifter](/phaseshifter): C/C++, simulating phase shift between electron bunch and radiation field.
+* [phaseshift](/phaseshift): C/C++, simulating phase shift between electron bunch and radiation field.
 * [readdpa](/readdpa): C/C++, extract data from .dpa files.
 * [calpulse](/calpulse): Bash Shell/Python, calculate pulse energy and average pulse power, utilizing <code>getdp_s</code> and <code>getdp_z</code> (shell version) and more efficient Python version (calpulse.py).
 * [optimizationSuite](/optimizationSuite): Bash Shell, parameters optimization scripts.
