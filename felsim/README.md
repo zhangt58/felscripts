@@ -5,7 +5,7 @@ General FEL simulation approach:
 * FEL generation is handled by `genesis 1.3`;
 * Data interfacing is handeld by third-party programs/scripts.
 
-see example in ![EEHG10](/EEHG10) folder.
+see example in EEHG10 folder.
 
 All scripts/programs:
 ```shell
