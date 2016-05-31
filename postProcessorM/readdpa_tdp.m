@@ -1,4 +1,4 @@
-#!/usr/bin/octave -qf
+#!/usr/local/bin/octave -qf
 
 %--------------------------------------------------------------------
 % This script is used to extraing slices out of the dpa binary file
@@ -15,7 +15,7 @@
 %-------------------------------------------------------------------
 
 function give_warning()
-	printf("Usage: readdpa.m [option] binfile outfile npart datafmt mflag [slices]\n");
+	printf("Usage: readdpa_tdp.m [option] binfile outfile npart datafmt mflag [slices]\n");
 	printf("\t binfile: filename of the binary dpa/par file to read\n");
 	printf("\t outfile: name head of the ascii slice files to write\n");
 	printf("\t npart  : particle number of the dpa file (per slice)\n");
