@@ -1,4 +1,4 @@
-#!/usr/bin/octave -qf
+#!/usr/local/bin/octave -qf
 
 %--------------------------------------------------------------------
 % This script is used to extraing slices out of the dpa binary file
