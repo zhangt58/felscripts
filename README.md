@@ -1,12 +1,8 @@
 ## felscripts
-<<<<<<< HEAD
 ![C/C++](https://img.shields.io/badge/C-C%2B%2B-brightgreen.svg)
 ![bash](https://img.shields.io/badge/shell-bash-brightgreen.svg)
 ![python](https://img.shields.io/badge/python-2.7-brightgreen.svg)
 ![octave](https://img.shields.io/badge/matlab-octave-brightgreen.svg)
-=======
-![C/C++](https://img.shields.io/badge/C-C%2B%2B-brightgreen.svg)![bash](https://img.shields.io/badge/shell-bash-brightgreen.svg)![python](https://img.shields.io/badge/python-2.7-brightgreen.svg)![octave](https://img.shields.io/badge/matlab-octave-brightgreen.svg)
->>>>>>> 16603160021c5ff3ecfcffbc6ce34c89f3ed0271
 
 Data post-processing and optimization scripts/programms for free-electron laser simulating code (Genesis 1.3) written in kinds of languages.
 
@@ -27,5 +23,3 @@ Data post-processing and optimization scripts/programms for free-electron laser 
 * 2014-01-24: upload to bitbucket
 * 2015-05-22: migrate to github 
 * 2016-05-31: add more READMEs and scripts/programs
-
-
