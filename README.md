@@ -1,5 +1,5 @@
 ## felscripts
-![C/C++](https://img.shields.io/badge/C-C%2B%2B-brightgreen.svg) 
+![C/C++](https://img.shields.io/badge/C-C%2B%2B-brightgreen.svg)
 ![bash](https://img.shields.io/badge/shell-bash-brightgreen.svg)
 ![python](https://img.shields.io/badge/python-2.7-brightgreen.svg)
 ![octave](https://img.shields.io/badge/matlab-octave-brightgreen.svg)
