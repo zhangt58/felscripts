@@ -1,0 +1,52 @@
+ $newrun
+ partfile='0.out.dpa'
+
+ trama = 1
+ itram16  = 0.116
+ TGUalpha = 12
+
+ idmpfld=0
+ idmppar=0
+ ippart=0
+ convharm=1
+ nharm=1
+ iallharm=0
+ iharmsc=1
+ nbins=4
+ npart=10000
+ itgaus=1
+ shotnoise=1
+ version=2
+ gamma0= 301.4
+ emitx = 2e-6
+ emity = 2e-6
+ curpeak = 300
+ rxbeam= 
+ rybeam= 
+ alphax= 
+ alphay= 
+
+ curlen=3e-4
+ itdp=0
+ zsep=60
+ nslice=130
+ ntail=-65
+ iotail=1
+ xlamd=0.04
+ aw0=1.61
+ awd=1.61
+ delz=1
+ quadf=0
+ fl=0
+ maginfile='rad.lat'
+ outputfile='rad.out'
+ lout = 1 1 1 1 1 0 1 1 1 1 1 1 1 1 1 0 0 0 0
+ dgrid = 3.5e-3
+ ncar = 191
+ xlamds=800e-9
+ !radfile = 'hhg_10MW_5fs.in'
+ prad0=1e6
+ zrayl=0.5
+ zwaist=0
+ zstop = 4
+ $end

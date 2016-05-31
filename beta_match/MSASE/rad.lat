@@ -1,0 +1,14 @@
+? VERSION=1.0
+? UNITLENGTH = 0.04
+
+!loop=1
+AW      0.000    0    0
+AW   1.61  100  0
+!endloop
+
+!loop=1
+QF      0.00000E+00    00   0
+QF     +1.20000E+00     0   0
+QF      0.00000E+00    100  0
+QF     +1.00000E+00     0   0
+!endloop

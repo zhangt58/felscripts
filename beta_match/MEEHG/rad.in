@@ -1,0 +1,68 @@
+ $newrun
+
+ ! undulator
+ aw0   = 1.001
+ awd   = 1.001
+ xlamd = 0.025
+ delz  = 1
+ 
+ ! electron beam
+ gamma0    = 322.896
+ delgam    = 0.01614
+ rxbeam= 1.5317e-04
+ rybeam= 7.8104e-05
+ alphax= -1.7640
+ alphay= 0.56578
+ emitx     = 2e-6
+ emity     = 2e-6
+ curpeak   = 200
+ npart=8192
+ nbins     = 4
+ itgaus    = 1
+ igamgaus  = 1
+ shotnoise = 1
+
+ ! radiation
+ xlamds   = 240e-9
+ prad0    = 1
+ zwaist   = 0
+ zrayl    = 0.5
+ ncar     = 151
+ rmax0    = 9
+ nharm    = 1
+ iallharm = 0
+ iharmsc  = 0
+
+ ! output
+ lout       = 1 1 1 1 1 0 1 1 1 1 1 0 0 0 0 0 0 0 0
+ ippart     = 0
+ idmppar    = 0
+ idmpfld    = 0
+ outputfile = 'rad.out'
+ filetype   = 'original'
+
+ ! tdp
+ itdp    =  0
+ iotail  =  1
+ curlen  =  3e-4
+ ntail   = -100
+ nslice  =  200
+ zsep    =  1
+
+ ! lattice
+ maginfile = 'rad.lat'
+ quadf     =  0
+ fl        =  0
+
+ ! chicane 1 (small)
+ convharm = 10
+ ibfield=0.28
+ imagl    = 0.15
+ idril    = 0.1
+
+ ! external input files
+ partfile = 'mod2.out.dpa'
+
+ ! other
+ version = 2
+ $end

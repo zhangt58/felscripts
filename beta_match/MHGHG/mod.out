@@ -1,0 +1,208 @@
+- - - - - - - - - - - - - - - - - - - - - - - ------------------------------------------------
+Genesis 1.3 output start
+(Version 1.0 Unix)
+
+Input file name:  mod.in                        
+
+ $newrun
+ aw0   =  1.030982E+00
+ xkx   =  0.000000E+00
+ xky   =  1.000000E+00
+ wcoefz=  0.000000E+00   0.000000E+00   0.000000E+00
+ xlamd =  5.000000E-02
+ fbess0=  0.000000E+00
+ delaw =  0.000000E+00
+ iertyp=    0
+ iwityp=    0
+ awd   =  1.030982E+00
+ awx   =  0.000000E+00
+ awy   =  0.000000E+00
+ iseed =   -1
+ npart =   8192
+ gamma0=  4.146208E+02
+ delgam=  4.146200E-02
+ rxbeam=  1.246900E-04
+ rybeam=  3.530300E-04
+ alphax=  1.398200E+00
+ alphay=  4.521400E+00
+ emitx =  2.000000E-06
+ emity =  2.000000E-06
+ xbeam =  0.000000E+00
+ ybeam =  0.000000E+00
+ pxbeam=  0.000000E+00
+ pybeam=  0.000000E+00
+ conditx =  0.000000E+00
+ condity =  0.000000E+00
+ bunch =  0.000000E+00
+ bunchphase =  0.000000E+00
+ emod =  0.000000E+00
+ emodphase =  0.000000E+00
+ xlamds=  3.000000E-07
+ prad0 =  3.000000E+07
+ pradh0=  0.000000E+00
+ zrayl =  1.676000E+00
+ zwaist=  0.000000E+00
+ ncar  =  151
+ lbc   =    0
+ rmax0 =  9.000000E+00
+ dgrid =  0.000000E+00
+ nscr  =    0
+ nscz  =    0
+ nptr  =   40
+ nwig  =   98
+ zsep  =  8.000000E+00
+ delz  =  1.000000E+00
+ nsec  =    1
+ iorb  =    0
+ zstop = -1.000000E+00
+ magin =    0
+ magout=    0
+ quadf =  0.000000E+00
+ quadd =  0.000000E+00
+ fl    =  0.000000E+00
+ dl    =  0.000000E+00
+ drl   =  0.000000E+00
+ f1st  =  0.000000E+00
+ qfdx  =  0.000000E+00
+ qfdy  =  0.000000E+00
+ solen =  0.000000E+00
+ sl    =  0.000000E+00
+ ildgam=    5
+ ildpsi=    7
+ ildx  =    1
+ ildy  =    2
+ ildpx =    3
+ ildpy =    4
+ itgaus=    1
+ nbins =    8
+ igamgaus =    1
+ inverfc =    0
+ lout  = 1 1 1 1 1 0 1 1 1 1 1 0 0 1 0 0 0 0 0
+ 0 0
+ iphsty=    1
+ ishsty=    1
+ ippart=    0
+ ispart=    0
+ ipradi=    0
+ isradi=    0
+ idump =    0
+ iotail=    1
+ nharm =    1
+ iallharm =    0
+ iharmsc =    0
+ curpeak=  2.500000E+02
+ curlen=  1.200000E-04
+ ntail = -101
+ nslice=  202
+ shotnoise=  1.000000E+00
+ isntyp=    0
+ iall  =    0
+ itdp  =    0
+ ipseed=   -1
+ iscan =    0
+ nscan =    3
+ svar  =  1.000000E-02
+ isravg=    0
+ isrsig=    0
+ cuttail= -1.000000E+00
+ eloss =  0.000000E+00
+ version=  1.000000E-01
+ ndcut =   -1
+ idmpfld=    0
+ idmppar=    1
+ ilog  =    0
+ ffspec=    0
+ convharm=    1
+ ibfield=  0.000000E+00
+ imagl=    0.000000E+00
+ idril=    0.000000E+00
+ alignradf=    0
+ offsetradf=    0
+ multconv=    0
+ igamref=  0.000000E+00
+ rmax0sc=  0.000000E+00
+ iscrkup=    0
+ trama=    0
+ itram11=  1.000000E+00
+ itram12=  0.000000E+00
+ itram13=  0.000000E+00
+ itram14=  0.000000E+00
+ itram15=  0.000000E+00
+ itram16=  0.000000E+00
+ itram21=  0.000000E+00
+ itram22=  1.000000E+00
+ itram23=  0.000000E+00
+ itram24=  0.000000E+00
+ itram25=  0.000000E+00
+ itram26=  0.000000E+00
+ itram31=  0.000000E+00
+ itram32=  0.000000E+00
+ itram33=  1.000000E+00
+ itram34=  0.000000E+00
+ itram35=  0.000000E+00
+ itram36=  0.000000E+00
+ itram41=  0.000000E+00
+ itram42=  0.000000E+00
+ itram43=  0.000000E+00
+ itram44=  1.000000E+00
+ itram45=  0.000000E+00
+ itram46=  0.000000E+00
+ itram51=  0.000000E+00
+ itram52=  0.000000E+00
+ itram53=  0.000000E+00
+ itram54=  0.000000E+00
+ itram55=  1.000000E+00
+ itram56=  0.000000E+00
+ itram61=  0.000000E+00
+ itram62=  0.000000E+00
+ itram63=  0.000000E+00
+ itram64=  0.000000E+00
+ itram65=  0.000000E+00
+ itram66=  1.000000E+00
+ outputfile ='mod.out'
+ maginfile ='mod.lat'
+ filetype ='ORIGINAL'
+ $end
+flags for output parameter
+ 1 1 1 1 1 0 1 1 1 1 1 0 0 1 0 0 0 0 0 0 0
+   11 entries per record
+    1 history records
+    0.3000E-06 wavelength
+    0.3000E-06 seperation of output slices
+  151 number of gridpoints
+    0.4647E-04 meshsize
+   8192 number of particles
+    0 particle: records in z
+    0 particle: records in t
+    0 field: records in z
+    0 field: records in t
+    z[m]          aw            qfld      
+    0.0000E+00    1.0310E+00    0.0000E+00
+    5.0000E-02    1.0310E+00    0.0000E+00
+    1.0000E-01    1.0310E+00    0.0000E+00
+    1.5000E-01    1.0310E+00    0.0000E+00
+    2.0000E-01    1.0310E+00    0.0000E+00
+    2.5000E-01    1.0310E+00    0.0000E+00
+    3.0000E-01    1.0310E+00    0.0000E+00
+    3.5000E-01    1.0310E+00    0.0000E+00
+    4.0000E-01    1.0310E+00    0.0000E+00
+    4.5000E-01    1.0310E+00    0.0000E+00
+    5.0000E-01    1.0310E+00    0.0000E+00
+
+********** output: slice     1
+           =================
+     2.5000E+02 current
+
+
+    power         increment     p_mid         phi_mid       r_size        energy        bunching      xrms          yrms          error         e-spread  
+    3.0000E+07   -2.4425E-14    2.5767E+05    0.0000E+00    2.8288E-04    3.8858E-16    8.4002E-16    1.2469E-04    3.5303E-04    0.0000E+00    4.1462E-02
+    3.0000E+07    1.6225E-04    2.5745E+05   -2.9586E-02    2.8301E-04   -9.8692E-07    1.9524E-04    1.2200E-04    3.4990E-04    3.9098E-04    4.6152E-02
+    3.0001E+07    2.7147E-04    2.5679E+05   -5.9026E-02    2.8338E-04   -3.6483E-06    7.7500E-04    1.1934E-04    3.4668E-04    6.1503E-04    5.8071E-02
+    3.0001E+07    2.6862E-04    2.5570E+05   -8.8195E-02    2.8399E-04   -7.0171E-06    1.7448E-03    1.1672E-04    3.4338E-04    5.2360E-04    7.3883E-02
+    3.0001E+07    9.3024E-05    2.5420E+05   -1.1698E-01    2.8486E-04   -9.4218E-06    3.1073E-03    1.1413E-04    3.4000E-04   -3.5226E-05    9.1652E-02
+    3.0001E+07   -3.1655E-04    2.5231E+05   -1.4525E-01    2.8596E-04   -8.4723E-06    4.8651E-03    1.1159E-04    3.3654E-04   -1.2137E-03    1.1048E-01
+    2.9999E+07   -1.0208E-03    2.5005E+05   -1.7290E-01    2.8731E-04   -1.0612E-06    7.0201E-03    1.0908E-04    3.3300E-04   -3.1618E-03    1.2993E-01
+    2.9996E+07   -2.0782E-03    2.4745E+05   -1.9981E-01    2.8889E-04    1.6621E-05    9.5743E-03    1.0662E-04    3.2938E-04   -6.0228E-03    1.4978E-01
+    2.9991E+07   -3.5439E-03    2.4453E+05   -2.2584E-01    2.9070E-04    4.9050E-05    1.2529E-02    1.0421E-04    3.2567E-04   -9.9310E-03    1.6989E-01
+    2.9983E+07   -5.4687E-03    2.4134E+05   -2.5086E-01    2.9274E-04    1.0132E-04    1.5885E-02    1.0185E-04    3.2190E-04   -1.5008E-02    1.9018E-01
+    2.9971E+07   -7.8981E-03    2.3791E+05   -2.7477E-01    2.9501E-04    1.7909E-04    1.9643E-02    9.9542E-05    3.1804E-04   -2.1361E-02    2.1059E-01

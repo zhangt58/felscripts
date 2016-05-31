@@ -1,0 +1,24 @@
+#Today is Sun Mar  6 23:36:10 CST 2011
+#
+#This file is a series of number separated by blanks, 
+#which describes the whole lattice of HGHG.
+#
+#Format :!	n1	n2	n3	n4	n5	n6	n7	n8	n9
+#meaning:	lo1	lum	lo2 lo3 QF  lo4 lur	lo5 QD
+#lo1:	drift length before modulator,				unit: modulator period
+#UM :	modulator length,							unit: modulator period
+#lo2:	drift length between modulator and chicane,	unit: modulator period
+#lo3:   drift length before QF1,after chicane,		unit: radiator  period
+#QF :   1st quadruplole length,						unit: radiator  period
+#lo4:   drift length between QF1 and undulator,		unit: radiator  period
+#UR :   undulator length,							unit: radiator  period
+#lo5:   drift length between undulator and QF2(QD),	unit: radiator  period
+#QD :   2nd quadruplole length,						unit: radiator  period
+#the full lattice will be: n1 n2 n3 [chicane] n4 n5 n6 n7 n8 n9 n6 n7 n8
+#i.e.                    : O1+UM+O2+[Chicane]+O3+QF+O4+UR+O5+QD+O4+Ur+O5
+#On theory : one FODO will be: n5/2 n6 n7 n8 n9 n6 n7 n8 n5/2
+|----|  |----|  |----|   |----|  |----|  |----|  |----|  |----|  |----|
+|-O1-|->|-UM-|->|-O2-|-C-|-O3-|->|-QF-|->|-O4-|->|-UR-|->|-O5-|->|-QD-|+... 
+|----|  |----|  |----|   |----|  |----|  |----|  |----|  |----|  |----|
+#write lattice number from modulator to radiator after '!' the next line.
+!0 10 0 12 6 12 100 12 6

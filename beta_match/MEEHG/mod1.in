@@ -1,0 +1,63 @@
+ $newrun
+
+ ! undulator
+ aw0   = 3.001
+ awd   = 3.001
+ xlamd = 0.05
+ delz  = 1
+ 
+ ! electron beam
+ gamma0    = 322.896
+ delgam    = 0.01614
+ rxbeam= 4.0580e-04
+ rybeam= 1.3603e-04
+ alphax= 5.2674
+ alphay= -1.2461
+ emitx     = 2e-6
+ emity     = 2e-6
+ curpeak   = 200
+ npart=8192
+ nbins     = 4
+ itgaus    = 1
+ igamgaus  = 1
+ shotnoise = 1
+
+ ! radiation
+ xlamds   = 2400e-9
+ prad0    = 10.00e6
+ zwaist   = 0
+ zrayl    = 30
+ ncar     = 151
+ rmax0    = 9
+ nharm    = 1
+ iallharm = 0
+ iharmsc  = 0
+
+ ! output
+ lout       = 1 1 1 1 1 0 1 1 1 1 1 0 0 0 0 0 0 0 0 
+ ippart     = 1
+ idmppar    = 1
+ idmpfld    = 0
+ outputfile = 'mod1.out'
+ filetype   = 'original'
+
+ ! tdp
+ itdp    =  0
+ iotail  =  1
+ curlen  =  3e-4
+ ntail   = -100
+ nslice  =  200
+ zsep    =  1
+
+ ! lattice
+ maginfile = 'mod1.lat'
+ quadf     =  0
+ fl        =  0
+
+ ! chicane
+ convharm = 1
+ ibfield  = 0
+ imagl    = 0
+ idril    = 0
+
+ $end

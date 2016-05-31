@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "mod1.in" | genesis
+echo "mod2.in" | genesis
+echo "rad.in" | genesis

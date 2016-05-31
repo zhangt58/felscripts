@@ -46,9 +46,8 @@ thetaArr = xArray*lambdas/ncar/meshsize^2;
 
 [X, Y] = meshgrid(thetaArr, thetaArr);
 
-
 %%
-figure(2)
+figure(1)
 contourf(X*1e3,Y*1e3,intFarField',500)
 shading flat
 colorbar
@@ -73,11 +72,12 @@ ylabel('$\theta_y\,\mathrm{[mrad]}$','Interpreter','LaTeX',...
         'FontName','Times New Roman','FontSize',12)
 
 %%
-contourf(X*1e6,Y*1e6,zslp-znslp,500)
-shading flat
-colorbar
-set(gca, 'FontName', 'Times New Roman', 'FontSize', 10);
-xlabel('$\theta_x\,\mathrm{[\mu rad]}$','Interpreter','LaTeX',...
-        'FontName','Times New Roman','FontSize',12)
-ylabel('$\theta_y\,\mathrm{[\mu rad]}$','Interpreter','LaTeX',...
-        'FontName','Times New Roman','FontSize',12)
+% figure(3)
+% contourf(X*1e6,Y*1e6,zslp-znslp,500)
+% shading flat
+% colorbar
+% set(gca, 'FontName', 'Times New Roman', 'FontSize', 10);
+% xlabel('$\theta_x\,\mathrm{[\mu rad]}$','Interpreter','LaTeX',...
+%         'FontName','Times New Roman','FontSize',12)
+% ylabel('$\theta_y\,\mathrm{[\mu rad]}$','Interpreter','LaTeX',...
+%         'FontName','Times New Roman','FontSize',12)

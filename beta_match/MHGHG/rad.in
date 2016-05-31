@@ -1,0 +1,58 @@
+ $newrun
+ partfile='mod.out.dpa' 
+ convharm=3
+ multconv=0
+ 
+ idmpfld=0
+ idmppar=0
+ 
+ ibfield=.15500
+ imagl=0.15
+ idril=0.285
+ 
+ aw0=1.139
+ awd=1.139
+ xlamd =  3.00000E-02
+ npart =   8192
+ gamma0= 587.084
+ rxbeam= 9.9338e-05
+ rybeam= 6.8075e-05
+ alphax= -1.1096
+ alphay= 0.66418
+ emitx= 1e-6
+ emity= 1e-6
+ 
+ xlamds=100E-09
+ prad0 =  1
+ zrayl =  1.000000E-00
+ zwaist=  0.000000E+00
+ ncar  =  151
+ rmax0 =  9.000000E+00
+ dgrid =  0.000000E+00
+ zsep=12
+ delz  =  1.000000E+00
+ quadf =  0.000000E+00
+ quadd =  0.000000E+00
+ fl    =  0.000000E+01
+ itgaus=    1
+ nbins =    8
+ igamgaus =    1
+ lout  = 1 1 1 1 1 1 1 1 1 1 1 0 0 1 0 0 0 0 0 0 0
+ iotail=    1
+ nharm =    1
+ iallharm =    1
+ iharmsc =    1
+ curpeak= 300
+ curlen=2e-4
+ ntail=-300
+ nslice=600
+ shotnoise=  1.0
+ itdp=0
+ filetype ='ORIGINAL'
+ outputfile='rad.out'
+ maginfile='rad.lat'
+!tapering
+! wcoefz = 4.5 0.03 1
+! wcoefz = 4.5 0.01 1
+! wcoefz = 4.5 0.08 1
+ $end

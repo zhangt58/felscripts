@@ -1,0 +1,15 @@
+? VERSION=1.0
+? UNITLENGTH = 0.030
+
+! LOOP=4
+AW      0.0000E+00      30   0
+AW      1.1390E+00      100  0
+! ENDLOOP
+
+! LOOP=2
+QF      0.0             12   0
+QF     +2.10000E+00     6   0
+QF      0.0             124  0
+QF     +9.00000E-01     6   0
+QF      0.0             112  0
+! ENDLOOP
