@@ -1,16 +1,9 @@
-###Package name: `optGamma`
+### optGamma
+Belongs to package: `optimizationSuite`
 
-###Belongs to package: `optimizationSuite`
+Created: 2014-05-06, 11:40 CST 
 
-####Information:
-
-Author: Tong Zhang
-
-E-mail: zhangtong@sinap.ac.cn
-
-Time  : 2014-05-06, 11:40 CST 
-
-####Overview:
+#### Overview:
 Optimize the beam energy for an free-electron laser. The script
 <code>optgamma_p.sh</code> is designed for parameters setup. Energy 
 scanning range in rest energy (gamma = (Energy in [MeV])/0.511),

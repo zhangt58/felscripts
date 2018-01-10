@@ -1,13 +1,9 @@
-###Package name: `optTaper`
-###Belongs to package: `optimizationSuite`
-####Information:
-Author: Tong Zhang
+### optTaper
+Belongs to package: `optimizationSuite`
 
-E-mail: zhangtong@sinap.ac.cn
+Created: 2014-05-12, 19:24 CST 
 
-Time  : 2014-05-12, 19:24 CST 
-
-####Overview:
+#### Overview:
 Optimize undulator tapering set up for an free-electron laser. 
 The script `optTaper_p.sh` is designed for parameters setup. 
 Two parameters: taper begins z-pos and total tapered percent are 

@@ -1,12 +1,9 @@
-###Package name: `optTGU`
-###Belongs to package: `optimizationSuite`
-####Information:
-Author: Tong Zhang
+### optTGU
+Belongs to package: `optimizationSuite`
 
-E-mail: zhangtong@sinap.ac.cn
+Created: 2014-05-06, 13:49 CST
 
-Time  : 2014-05-06, 13:49 CST
-####Overview:
+#### Overview:
 Two-dimensional optimize the transverse gradient of undulator
 ('TGUalpha' in genesis input panel) and the transverse dispersion 
 ('itram16' in genesis input panel) for an free-electron laser. 

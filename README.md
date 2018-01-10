@@ -7,7 +7,7 @@
 Data post-processing and optimization scripts/programms for free-electron laser simulating code (Genesis 1.3) written in kinds of languages.
 
 #### contents:
-* [getdp](/getdp): C/C++, extract data block from time-dependent output files, according to the slice order or z order, regarding to options. 
+* [getdp](/getdp): C/C++, extract data block from time-dependent output files, according to the slice order or z order, regarding to options.
 * [phaseshift](/phaseshift): C/C++, simulating phase shift between electron bunch and radiation field.
 * [readdpa](/readdpa): C/C++, extract data from .dpa files.
 * [calpulse](/calpulse): Bash Shell/Python, calculate pulse energy and average pulse power, utilizing <code>getdp_s</code> and <code>getdp_z</code> (shell version) and more efficient Python version (calpulse.py).
@@ -20,7 +20,7 @@ Data post-processing and optimization scripts/programms for free-electron laser 
 * [beta match](/beta_match): Bash Shell/Octave/Matlab, twiss parameters matching for SASE, HGHG, EEHG, etc.
 * [felsim](/felsim): Bash Shell/Octave/Matlab/C/C++, general FEL simulation approach.
 
-#####Log:
+#### Log:
 * 2014-01-24: upload to bitbucket
-* 2015-05-22: migrate to github 
+* 2015-05-22: migrate to github
 * 2016-05-31: add more READMEs and scripts/programs

@@ -1,4 +1,4 @@
-####Package Overview:
+#### Package Overview:
 
 <code>getdp</code> : Extract data block by _slice-order_ or _z-entry order_ from GENESIS 1.3 TDP simulation output files.
 

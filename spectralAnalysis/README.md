@@ -1,21 +1,17 @@
-####Package Name: `calspe.sh`
+### calspe.sh
 
-####Information:
-Author: Tong Zhang
-E-mail: tzhang@sinap.ac.cn
-Updated Date: Apr. 11, 2012
 Last update:  2014-05-15, 09:51 CST
 
-####Description:
+#### Description:
 This is a script package for spectra calculation from TDP outputfile 
 of GENESIS
 
-####Usage:
+#### Usage:
 ```shell
 calspe.sh outfile zentri_
     outfile: TDP output datafile
     zentri : z record order
 ```
 
-####To Do:
+#### To Do:
 [ ] add FFT range, from nslice1 to nslice2, 1..nslice by default
